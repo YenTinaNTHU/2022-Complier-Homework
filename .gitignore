@@ -2,9 +2,9 @@
 .gnupg/*
 .vim/*
 .vscode-server/*
-.bash_histort/*
+.bash_history/*
 .bashrc/*
-.gitcomfig/*
+.gitconfig/*
 .profile
 .viminfo
 .wget-hsts

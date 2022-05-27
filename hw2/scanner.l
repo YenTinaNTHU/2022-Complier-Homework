@@ -33,13 +33,13 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 
 \" {
     yylval.string_v = strdup(yytext);
-    return STRING_START;
     BEGIN STRING;
+    return STRING_START;
 }
 <STRING>\" {
     yylval.string_v = strdup(yytext);
-    return STRING_END;
     BEGIN 0;
+    return STRING_END;
 }
 <STRING>\\ {
     yylval.string_v = strdup(yytext);
@@ -47,7 +47,7 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     BEGIN STRING_ESCAPE;
 }
 <STRING>\n ;
-<STRING>.* {
+<STRING>[^\"]* {
     yylval.string_v = strdup(yytext);
     return STR;
 }
@@ -69,8 +69,8 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 }
 <CHARACTOR>\\ {
     yylval.string_v = strdup(yytext);
-    return ESCAPE_START;
     BEGIN CHARACTOR_ESCAPE;
+    return ESCAPE_START;
 }
 <CHARACTOR>\n ;
 <CHARACTOR>. {
@@ -78,9 +78,9 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     return CHAR;
 }
 <CHARACTOR_ESCAPE>. {
-    yylval.char_v = strdup(yytext)[0];
-    return ESCAPE_CHAR;
+    yylval.string_v = strdup(yytext);
     BEGIN CHARACTOR;
+    return ESCAPE_CHAR;
 }
 
 "+"|"-"|"*"|"/"|"%"|"<"|">"|"="|"!"|"&"|"|" {

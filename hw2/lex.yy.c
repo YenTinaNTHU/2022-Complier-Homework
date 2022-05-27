@@ -417,7 +417,7 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[50] =
     {   0,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    2,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    3,    1,    1,
         1,    1,    1,    3,    1,    1,    1,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
@@ -431,7 +431,7 @@ static const flex_int16_t yy_base[180] =
       208,  208,  191,  208,  208,   49,   53,  180,   49,   54,
        52,  175,   55,    0,  155,   51,   50,  157,   45,   54,
       154,  161,   53,  153,  151,  155,  141,  208,  208,  171,
-      208,  208,    0,  208,    0,    0,  208,  208,  208,  208,
+      208,  208,    0,    0,  208,    0,  208,  208,  208,  208,
       208,  208,  208,  208,  208,  169,   76,  208,  168,  208,
       208,  167,  208,  208,  208,  208,  208,    0,  152,  141,
       154,  142,  147,  135,  136,  137,  135,    0,  132,  135,
@@ -454,7 +454,7 @@ static const flex_int16_t yy_def[180] =
       171,  171,  171,  171,  171,  171,  171,  171,  171,  171,
       171,  171,  171,  178,  178,  178,  178,  178,  178,  178,
       178,  178,  178,  178,  178,  178,  171,  171,  171,  171,
-      171,  171,  179,  171,  179,  179,  171,  171,  171,  171,
+      171,  171,  179,  179,  171,  179,  171,  171,  171,  171,
       171,  171,  171,  171,  171,  171,  171,  171,  171,  171,
       171,  171,  171,  171,  171,  171,  171,  178,  178,  178,
       178,  178,  178,  178,  178,  178,  178,  178,  178,  178,
@@ -885,8 +885,8 @@ YY_RULE_SETUP
 #line 34 "scanner.l"
 {
     yylval.string_v = strdup(yytext);
-    return STRING_START;
     BEGIN STRING;
+    return STRING_START;
 }
 	YY_BREAK
 case 9:
@@ -894,8 +894,8 @@ YY_RULE_SETUP
 #line 39 "scanner.l"
 {
     yylval.string_v = strdup(yytext);
-    return STRING_END;
     BEGIN 0;
+    return STRING_END;
 }
 	YY_BREAK
 case 10:
@@ -914,6 +914,7 @@ YY_RULE_SETUP
 ;
 	YY_BREAK
 case 12:
+/* rule 12 can match eol */
 YY_RULE_SETUP
 #line 50 "scanner.l"
 {
@@ -953,8 +954,8 @@ YY_RULE_SETUP
 #line 70 "scanner.l"
 {
     yylval.string_v = strdup(yytext);
-    return ESCAPE_START;
     BEGIN CHARACTOR_ESCAPE;
+    return ESCAPE_START;
 }
 	YY_BREAK
 case 17:
@@ -975,9 +976,9 @@ case 19:
 YY_RULE_SETUP
 #line 80 "scanner.l"
 {
-    yylval.char_v = strdup(yytext)[0];
-    return ESCAPE_CHAR;
+    yylval.string_v = strdup(yytext);
     BEGIN CHARACTOR;
+    return ESCAPE_CHAR;
 }
 	YY_BREAK
 case 20:
@@ -1199,7 +1200,7 @@ YY_RULE_SETUP
 #line 146 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1203 "lex.yy.c"
+#line 1204 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENTS):
 case YY_STATE_EOF(COMMENT):

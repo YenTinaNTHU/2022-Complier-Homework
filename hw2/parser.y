@@ -49,7 +49,7 @@ char* add_tag(char* tag, char* str){
 %type<string_v> array_decl arrays array arr_dim arr_content exprs
 %type<string_v> func_decl parameters func_def
 %type<string_v> statement statements compound_stmt
-%type<string_v> expr factor
+%type<string_v> expr literal char string
 
 
 %token<int_v> INT_NUM
@@ -233,19 +233,56 @@ expr
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
-	| factor { $$ = add_tag("expr", $1); }
+	| literal { $$ = add_tag("expr", $1); }
 ;
 
-factor
+literal
   : INT_NUM { $$ = itoa($1); }
   | FLOAT_NUM { $$ = ftoa($1); }
-  | CHAR_START CHAR CHAR_END
+  | CHAR_START char CHAR_END
     {
       size_t n = strlen($1) + strlen($2) + strlen($3);
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
+  | STRING_START string STRING_END
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+;
+
+char
+  : CHAR
+    {
+      $$ = strdup($1);
+    }
+  | ESCAPE_START ESCAPE_CHAR
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = str;
+    }
+  | { $$ = ""; }
+;
+
+string
+  : STR
+    {
+      $$ = strdup($1);
+    }
+  | STR ESCAPE_START ESCAPE_CHAR STR
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      $$ = str;
+    }
+  | { $$ = ""; }
 ;
 
 exprs
@@ -255,9 +292,9 @@ exprs
     }
   | expr ',' exprs
     {
-      char *str = strdup($1);
-      strcat(str, $2);
-      strcat(str, $3);
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
 ;
@@ -265,23 +302,24 @@ exprs
 scalar_decl
   : type idents
     {
-      char *str = strdup($1);
-      strcat(str, $2);
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
 ;
 
 idents
   : ident ',' idents {
-      char* str = strdup($1);
-      strcat(str, $2);
-      strcat(str, $3);
-      $$ = str; 
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
     }
   | ident '=' expr {
-      char* str = strdup($1);
-      strcat(str, $2);
-      strcat(str, $3);
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | ident { $$ = $1;}
@@ -314,8 +352,9 @@ arrays
 array
   : ident arr_dim
     {
-      char *str = strdup($1);
-      strcat(str, $2);
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
   | ident arr_dim '=' arr_content
@@ -330,15 +369,16 @@ array
 arr_dim
   : '[' expr ']'
     {
-      char *str = strdup($1);
-      strcat(str, $2);
-      strcat(str, $3);
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | '[' expr ']' arr_dim
     {
-      char *str = strdup($1);
-      strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
     }
 ;
@@ -346,14 +386,16 @@ arr_dim
 arr_content
   : '{' exprs '}'
     {
-      char *str = strdup($1);
-      strcat(str, $2); strcat(str, $3);
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | '{' arr_content '}'
     {
-      char *str = strdup($1);
-      strcat(str, $2); strcat(str, $3); 
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | arr_content ',' arr_content
