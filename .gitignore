@@ -1,0 +1,10 @@
+.cache/*
+.gnupg/*
+.vim/*
+.vscode-server/*
+.bash_histort/*
+.bashrc/*
+.gitcomfig/*
+.profile
+.viminfo
+.wget-hsts

@@ -141,3 +141,7 @@
 [2022-05-27 12:53:54.549] [remoteagent] [info] [127.0.0.1][13873fde][ExtensionHostConnection] New connection established.
 [2022-05-27 12:53:54.607] [remoteagent] [info] [127.0.0.1][13873fde][ExtensionHostConnection] <9597> Launched Extension Host Process.
 [2022-05-27 12:53:54.657] [remoteagent] [warning] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+[2022-05-27 12:56:36.446] [remoteagent] [info] [127.0.0.1][689fa141][ManagementConnection] New connection established.
+[2022-05-27 12:56:36.513] [remoteagent] [info] [127.0.0.1][9e46dc94][ExtensionHostConnection] New connection established.
+[2022-05-27 12:56:36.580] [remoteagent] [info] [127.0.0.1][9e46dc94][ExtensionHostConnection] <11758> Launched Extension Host Process.
+[2022-05-27 12:56:36.604] [remoteagent] [warning] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
