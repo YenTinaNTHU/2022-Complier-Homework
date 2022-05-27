@@ -83,7 +83,7 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     return ESCAPE_CHAR;
 }
 
-"+"|"-"|"*"|"/"|"%"|"<"|">"|"="|"!"|"&"|"|" {
+"+"|"-"|"*"|"/"|"%"|"<"|">"|"="|"!"|"~"|"&"|"|"|"^" {
     yylval.string_v = strdup(yytext);
     char x = strdup(yytext)[0];
     return x;
@@ -100,10 +100,19 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 ">>" {yylval.string_v = strdup(yytext); return RSHIFT;}
 
 
-{floats} { yylval.float_v = atof(yytext); return FLOAT_NUM; }
+{floats} {
+    yylval.float_v = atof(yytext);
+    if(yytext[0] == '+') return POS_FLOAT_NUM;
+    else if(yytext[0] == '-') return NEG_FLOAT_NUM;
+    else return FLOAT_NUM;
+}
 
-{integers} { yylval.int_v = atoi(yytext); return INT_NUM; }
-
+{integers} {
+    yylval.int_v = atoi(yytext);
+    if(yytext[0] == '+') return POS_INT_NUM;
+    else if(yytext[0] == '-') return NEG_INT_NUM;
+    else return INT_NUM;
+}
 "for" { yylval.string_v = strdup(yytext); return FOR;}
 "do" { yylval.string_v = strdup(yytext); return DO;}
 "while" { yylval.string_v = strdup(yytext); return WHILE;}
@@ -128,6 +137,7 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 "long" { yylval.string_v = strdup(yytext); return LONG;}
 "long long" { yylval.string_v = strdup(yytext); return LONGLONG;}
 
+"NULL" { yylval.int_v = atoi(yytext); return NUL;}
 
 {identifiers} { yylval.string_v = strdup(yytext); return ID; }
 

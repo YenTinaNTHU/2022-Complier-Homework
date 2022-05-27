@@ -55,9 +55,9 @@ char* add_tag(char* tag, char* str){
 %token<int_v> INT_NUM
 %token<float_v> FLOAT_NUM
 %token<string_v> ID
-%token<string_v> '=' '+' '-' '*' '/' '%' '<' '>' '!' '&' '|' INC DEC LEQ GEQ EQL NEQ LAND LOR
+%token<string_v> '=' '+' '-' '*' '/' '%' '<' '>' '!' '~' '&' '|' '^' INC DEC LEQ GEQ EQL NEQ LAND LOR
 %token<string_v> ':' ';' ',' '.' '[' ']' '(' ')' '{' '}'
-%token<string_v> CONST SIGNED UNSIGNED SHORT LONG LONGLONG INT CHAR DOUBLE VOID FLOAT STRUCT RETURN LSHIFT RSHIFT
+%token<string_v> CONST SIGNED UNSIGNED SHORT LONG LONGLONG INT CHAR DOUBLE VOID FLOAT STRUCT RETURN LSHIFT RSHIFT NUL
 %token<string_v> FOR DO WHILE BREAK CONTINUE
 %token<string_v> IF ELSE SWITCH CASE DEFAULT
 %token<string_v> CHAR_START CHAR_END ESCAPE_START ESCAPE_CHAR STRING_START STRING_END STR
@@ -71,8 +71,8 @@ char* add_tag(char* tag, char* str){
 %left '|'
 %left '^'
 %left '&'
-%left EQL
-%left '>' '<' LEQ GEQ
+%left EQL NEQ
+%left '>' '<' LEQ GEQ 
 %left LSHIFT RSHIFT
 %left '+' '-'
 %left '*' '/' '%'
@@ -126,7 +126,162 @@ expr
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
+  | expr INC
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | expr DEC
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | INC expr
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | DEC expr
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | expr '<' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr LEQ expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr '>' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr GEQ expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr EQL expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr NEQ expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr '=' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr LAND expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr LOR expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | '!' expr
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | '~' expr
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
+  | expr '^' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr '&' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr '|' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr LSHIFT expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | expr RSHIFT expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | '[' expr ']'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | '(' expr ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
 	| literal { $$ = add_tag("expr", $1); }
+  | NUL { $$ = add_tag("expr", "NULL");}
 ;
 
 literal

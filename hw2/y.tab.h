@@ -46,98 +46,112 @@ extern int yydebug;
   enum yytokentype
   {
     INT_NUM = 258,
-    FLOAT_NUM = 259,
-    ID = 260,
-    INC = 261,
-    DEC = 262,
-    LEQ = 263,
-    GEQ = 264,
-    EQL = 265,
-    NEQ = 266,
-    LAND = 267,
-    LOR = 268,
-    CONST = 269,
-    SIGNED = 270,
-    UNSIGNED = 271,
-    SHORT = 272,
-    LONG = 273,
-    LONGLONG = 274,
-    INT = 275,
-    CHAR = 276,
-    DOUBLE = 277,
-    VOID = 278,
-    FLOAT = 279,
-    STRUCT = 280,
-    RETURN = 281,
-    LSHIFT = 282,
-    RSHIFT = 283,
-    STR = 284,
-    FOR = 285,
-    DO = 286,
-    WHILE = 287,
-    BREAK = 288,
-    CONTINUE = 289,
-    IF = 290,
-    ELSE = 291,
-    SWITCH = 292,
-    CASE = 293,
-    DEFAULT = 294,
-    CHAR_START = 295,
-    CHAR_END = 296,
-    ESCAPE_START = 297,
-    ESCAPE_CHAR = 298,
-    STRING_START = 299,
-    STRING_END = 300,
-    UMINUS = 301,
-    UPLUS = 302
+    POS_INT_NUM = 259,
+    NEG_INT_NUM = 260,
+    FLOAT_NUM = 261,
+    POS_FLOAT_NUM = 262,
+    NEG_FLOAT_NUM = 263,
+    ID = 264,
+    INC = 265,
+    DEC = 266,
+    LEQ = 267,
+    GEQ = 268,
+    EQL = 269,
+    NEQ = 270,
+    LAND = 271,
+    LOR = 272,
+    CONST = 273,
+    SIGNED = 274,
+    UNSIGNED = 275,
+    SHORT = 276,
+    LONG = 277,
+    LONGLONG = 278,
+    INT = 279,
+    CHAR = 280,
+    DOUBLE = 281,
+    VOID = 282,
+    FLOAT = 283,
+    STRUCT = 284,
+    RETURN = 285,
+    LSHIFT = 286,
+    RSHIFT = 287,
+    STR = 288,
+    NUL = 289,
+    FOR = 290,
+    DO = 291,
+    WHILE = 292,
+    BREAK = 293,
+    CONTINUE = 294,
+    IF = 295,
+    ELSE = 296,
+    SWITCH = 297,
+    CASE = 298,
+    DEFAULT = 299,
+    CHAR_START = 300,
+    CHAR_END = 301,
+    ESCAPE_START = 302,
+    ESCAPE_CHAR = 303,
+    STRING_START = 304,
+    STRING_END = 305,
+    UMINUS = 306,
+    UPLUS = 307,
+    DEREF = 308,
+    ADDR = 309
   };
 #endif
 /* Tokens.  */
 #define INT_NUM 258
-#define FLOAT_NUM 259
-#define ID 260
-#define INC 261
-#define DEC 262
-#define LEQ 263
-#define GEQ 264
-#define EQL 265
-#define NEQ 266
-#define LAND 267
-#define LOR 268
-#define CONST 269
-#define SIGNED 270
-#define UNSIGNED 271
-#define SHORT 272
-#define LONG 273
-#define LONGLONG 274
-#define INT 275
-#define CHAR 276
-#define DOUBLE 277
-#define VOID 278
-#define FLOAT 279
-#define STRUCT 280
-#define RETURN 281
-#define LSHIFT 282
-#define RSHIFT 283
-#define STR 284
-#define FOR 285
-#define DO 286
-#define WHILE 287
-#define BREAK 288
-#define CONTINUE 289
-#define IF 290
-#define ELSE 291
-#define SWITCH 292
-#define CASE 293
-#define DEFAULT 294
-#define CHAR_START 295
-#define CHAR_END 296
-#define ESCAPE_START 297
-#define ESCAPE_CHAR 298
-#define STRING_START 299
-#define STRING_END 300
-#define UMINUS 301
-#define UPLUS 302
+#define POS_INT_NUM 259
+#define NEG_INT_NUM 260
+#define FLOAT_NUM 261
+#define POS_FLOAT_NUM 262
+#define NEG_FLOAT_NUM 263
+#define ID 264
+#define INC 265
+#define DEC 266
+#define LEQ 267
+#define GEQ 268
+#define EQL 269
+#define NEQ 270
+#define LAND 271
+#define LOR 272
+#define CONST 273
+#define SIGNED 274
+#define UNSIGNED 275
+#define SHORT 276
+#define LONG 277
+#define LONGLONG 278
+#define INT 279
+#define CHAR 280
+#define DOUBLE 281
+#define VOID 282
+#define FLOAT 283
+#define STRUCT 284
+#define RETURN 285
+#define LSHIFT 286
+#define RSHIFT 287
+#define STR 288
+#define NUL 289
+#define FOR 290
+#define DO 291
+#define WHILE 292
+#define BREAK 293
+#define CONTINUE 294
+#define IF 295
+#define ELSE 296
+#define SWITCH 297
+#define CASE 298
+#define DEFAULT 299
+#define CHAR_START 300
+#define CHAR_END 301
+#define ESCAPE_START 302
+#define ESCAPE_CHAR 303
+#define STRING_START 304
+#define STRING_END 305
+#define UMINUS 306
+#define UPLUS 307
+#define DEREF 308
+#define ADDR 309
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -151,7 +165,7 @@ union YYSTYPE
   char char_v;
   char* string_v;  
 
-#line 155 "y.tab.h" /* yacc.c:1909  */
+#line 169 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

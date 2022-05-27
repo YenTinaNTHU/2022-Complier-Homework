@@ -86,3 +86,34 @@ idents
   | ident '=' expression { char* str = strdup($1); strcat(str, $2); strcat(str, $3); $$ = str;}
   | ident { $$ = $1;}
 ;
+
+
+  | expr EQL expr
+  | expr NEQ expr
+  | expr '=' expr
+  | expr LAND expr
+  | expr LOR expr
+  | '!' expr
+  | '~' expr
+  | expr '^' expr
+  | expr '&' expr
+  | expr '|' expr
+  | expr LSHIFT expr
+  | expr RSHIFT expr
+  | '[' expr ']'
+  | '(' expr ')'
+
+    | '[' expr ']'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | '(' expr ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
