@@ -1,0 +1,9 @@
+[Info  - 1:50:43 AM] May 27, 2022 01:50:43 org.eclipse.lemminx.XMLLanguageServer initialize()
+Message: Initializing XML Language server
+LemMinX Server info:
+ - Version : 0.20.0
+ - Native Image
+ - VM Version : 17.0.2
+ - Git [Branch 6e1aecb3182fe156f699aec0bbff0e196c1bd7fb] 6e1aecb - [maven-release-plugin] prepare release 0.20.0
+[Info  - 1:52:34 AM] May 27, 2022 01:52:34 org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify()
+Message: Unsupported notification method: $/setTrace

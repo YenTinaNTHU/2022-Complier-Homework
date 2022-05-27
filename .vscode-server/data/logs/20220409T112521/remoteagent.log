@@ -1,0 +1,56 @@
+[2022-04-09 11:25:21.184] [remoteagent] [info] Extension host agent started.
+[2022-04-09 11:25:21.364] [remoteagent] [info] [127.0.0.1][f78c1f64][ExtensionHostConnection] New connection established.
+[2022-04-09 11:25:21.365] [remoteagent] [info] [127.0.0.1][04e09987][ManagementConnection] New connection established.
+[2022-04-09 11:25:21.370] [remoteagent] [info] [127.0.0.1][f78c1f64][ExtensionHostConnection] <10275> Launched Extension Host Process.
+[2022-04-09 11:25:27.803] [remoteagent] [info] [127.0.0.1][04e09987][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-04-09 11:25:27.824] [remoteagent] [info] [127.0.0.1][f78c1f64][ExtensionHostConnection] <10275> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 11:25:27.824] [remoteagent] [info] Last EH closed, waiting before shutting down
+[2022-04-09 11:25:31.781] [remoteagent] [info] Got delay-shutdown request while in shutdown timeout, delaying
+[2022-04-09 11:25:31.781] [remoteagent] [info] Cancelling previous shutdown timeout
+[2022-04-09 11:25:31.863] [remoteagent] [info] [127.0.0.1][0700dc8a][ManagementConnection] New connection established.
+[2022-04-09 11:25:31.923] [remoteagent] [info] [127.0.0.1][0e8b9a59][ExtensionHostConnection] New connection established.
+[2022-04-09 11:25:31.928] [remoteagent] [info] [127.0.0.1][0e8b9a59][ExtensionHostConnection] <10433> Launched Extension Host Process.
+[2022-04-09 11:30:31.781] [remoteagent] [info] New EH opened, aborting shutdown
+[2022-04-09 12:29:09.421] [remoteagent] [info] [127.0.0.1][0700dc8a][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-04-09 12:29:09.446] [remoteagent] [info] [127.0.0.1][0e8b9a59][ExtensionHostConnection] <10433> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 12:29:09.447] [remoteagent] [info] Last EH closed, waiting before shutting down
+[2022-04-09 12:29:20.765] [remoteagent] [info] Got delay-shutdown request while in shutdown timeout, delaying
+[2022-04-09 12:29:20.766] [remoteagent] [info] Cancelling previous shutdown timeout
+[2022-04-09 12:29:20.855] [remoteagent] [info] [127.0.0.1][d8e833f2][ManagementConnection] New connection established.
+[2022-04-09 12:29:20.888] [remoteagent] [info] [127.0.0.1][92328f68][ExtensionHostConnection] New connection established.
+[2022-04-09 12:29:20.900] [remoteagent] [info] [127.0.0.1][92328f68][ExtensionHostConnection] <25163> Launched Extension Host Process.
+[2022-04-09 12:29:30.210] [remoteagent] [info] [127.0.0.1][d8e833f2][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-04-09 12:29:30.234] [remoteagent] [info] [127.0.0.1][92328f68][ExtensionHostConnection] <25163> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 12:29:30.235] [remoteagent] [info] Cancelling previous shutdown timeout
+[2022-04-09 12:29:30.235] [remoteagent] [info] Last EH closed, waiting before shutting down
+[2022-04-09 12:29:36.254] [remoteagent] [info] Got delay-shutdown request while in shutdown timeout, delaying
+[2022-04-09 12:29:36.254] [remoteagent] [info] Cancelling previous shutdown timeout
+[2022-04-09 12:29:36.335] [remoteagent] [info] [127.0.0.1][8824cf3a][ManagementConnection] New connection established.
+[2022-04-09 12:29:36.399] [remoteagent] [info] [127.0.0.1][000593df][ExtensionHostConnection] New connection established.
+[2022-04-09 12:29:36.412] [remoteagent] [info] [127.0.0.1][000593df][ExtensionHostConnection] <25329> Launched Extension Host Process.
+[2022-04-09 12:34:36.256] [remoteagent] [info] New EH opened, aborting shutdown
+[2022-04-09 13:15:02.353] [remoteagent] [info] [127.0.0.1][000593df][ExtensionHostConnection] The client has reconnected.
+[2022-04-09 13:15:11.420] [remoteagent] [info] [127.0.0.1][8824cf3a][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+[2022-04-09 14:26:03.175] [remoteagent] [info] [127.0.0.1][8824cf3a][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+[2022-04-09 14:26:03.176] [remoteagent] [info] [127.0.0.1][28fe5684][ManagementConnection] New connection established.
+[2022-04-09 14:26:03.177] [remoteagent] [info] [127.0.0.1][9b2fd229][ExtensionHostConnection] New connection established.
+[2022-04-09 14:26:03.186] [remoteagent] [info] [127.0.0.1][9b2fd229][ExtensionHostConnection] <31977> Launched Extension Host Process.
+[2022-04-09 14:31:03.416] [remoteagent] [info] [127.0.0.1][000593df][ExtensionHostConnection] <25329> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 14:31:03.432] [remoteagent] [info] [127.0.0.1][8824cf3a][ManagementConnection] The reconnection short grace time of 5m has expired, so the connection will be disposed.
+[2022-04-09 17:07:43.016] [remoteagent] [info] [127.0.0.1][8ac264d8][ManagementConnection] New connection established.
+[2022-04-09 17:07:43.059] [remoteagent] [info] [127.0.0.1][c492ca91][ExtensionHostConnection] New connection established.
+[2022-04-09 17:07:43.070] [remoteagent] [info] [127.0.0.1][c492ca91][ExtensionHostConnection] <18020> Launched Extension Host Process.
+[2022-04-09 17:07:47.099] [remoteagent] [info] [127.0.0.1][8ac264d8][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-04-09 17:07:47.121] [remoteagent] [info] [127.0.0.1][c492ca91][ExtensionHostConnection] <18020> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 17:07:47.722] [remoteagent] [info] [127.0.0.1][2a1f3cf6][ManagementConnection] New connection established.
+[2022-04-09 17:07:47.766] [remoteagent] [info] [127.0.0.1][d8a3c89f][ExtensionHostConnection] New connection established.
+[2022-04-09 17:07:47.772] [remoteagent] [info] [127.0.0.1][d8a3c89f][ExtensionHostConnection] <18058> Launched Extension Host Process.
+[2022-04-09 17:15:25.976] [remoteagent] [info] [127.0.0.1][d8a3c89f][ExtensionHostConnection] The client has reconnected.
+[2022-04-09 17:15:31.341] [remoteagent] [info] [127.0.0.1][2a1f3cf6][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+[2022-04-09 17:15:36.839] [remoteagent] [info] [127.0.0.1][28fe5684][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+[2022-04-09 17:20:26.035] [remoteagent] [info] [127.0.0.1][9b2fd229][ExtensionHostConnection] <31977> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 20:15:37.411] [remoteagent] [info] [127.0.0.1][2a1f3cf6][ManagementConnection] The reconnection grace time of 3h has expired, so the connection will be disposed.
+[2022-04-09 20:15:41.980] [remoteagent] [info] [127.0.0.1][d8a3c89f][ExtensionHostConnection] <18058> Extension Host Process exited with code: 0, signal: null.
+[2022-04-09 20:15:41.980] [remoteagent] [info] Last EH closed, waiting before shutting down
+[2022-04-09 20:15:43.415] [remoteagent] [info] [127.0.0.1][28fe5684][ManagementConnection] The reconnection grace time of 3h has expired, so the connection will be disposed.
+[2022-04-09 20:20:41.981] [remoteagent] [info] Last EH closed, shutting down

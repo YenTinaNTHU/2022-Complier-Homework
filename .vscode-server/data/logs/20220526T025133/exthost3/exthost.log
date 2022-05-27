@@ -1,0 +1,23 @@
+[2022-05-26 03:16:21.170] [exthost] [info] Extension host with pid 6243 started
+[2022-05-26 03:16:21.248] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/484d1d86fe96644684ae5c0835234f02/vscode.lock': Lock acquired.
+[2022-05-26 03:16:21.306] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: true, activationEvent: '*'
+[2022-05-26 03:16:21.311] [exthost] [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+[2022-05-26 03:16:21.314] [exthost] [info] ExtensionService#_doActivateExtension vscode.ipynb, startup: true, activationEvent: '*'
+[2022-05-26 03:16:21.355] [exthost] [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+[2022-05-26 03:16:21.422] [exthost] [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+[2022-05-26 03:16:21.555] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onStartupFinished'
+[2022-05-26 03:16:21.572] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+[2022-05-26 03:16:21.576] [exthost] [info] Eager extensions activated
+[2022-05-26 16:29:58.435] [exthost] [info] ExtensionService#_doActivateExtension cschlosser.doxdocgen, startup: false, activationEvent: 'onLanguage:c'
+[2022-05-26 16:29:58.491] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.cpptools, startup: false, activationEvent: 'onLanguage:c'
+[2022-05-26 16:30:32.617] [exthost] [info] ExtensionService#_doActivateExtension vscode.configuration-editing, startup: false, activationEvent: 'onLanguage:jsonc'
+[2022-05-26 16:30:32.650] [exthost] [info] ExtensionService#_doActivateExtension vscode.json-language-features, startup: false, activationEvent: 'onLanguage:jsonc'
+[2022-05-26 16:30:32.749] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features, startup: false, activationEvent: 'onLanguage:jsonc'
+[2022-05-27 01:50:04.645] [exthost] [info] ExtensionService#_doActivateExtension fabianlauer.vs-code-xml-format, startup: false, activationEvent: 'onLanguage:xml'
+[2022-05-27 01:50:41.242] [exthost] [info] ExtensionService#_doActivateExtension redhat.vscode-xml, startup: false, activationEvent: 'onLanguage:xml'
+[2022-05-27 01:50:43.749] [exthost] [warning] [redhat.vscode-xml] Accessing a resource scoped configuration without providing a resource is not expected. To get the effective value for '[xml]', provide the URI of a resource or 'null' for any resource.
+[2022-05-27 01:51:28.938] [exthost] [info] ExtensionService#_doActivateExtension mikeburgh.xml-format, startup: false, activationEvent: 'onLanguage:xml'
+[2022-05-27 01:52:34.501] [exthost] [warning] [redhat.vscode-xml] Accessing a resource scoped configuration without providing a resource is not expected. To get the effective value for '[xml]', provide the URI of a resource or 'null' for any resource.
+[2022-05-27 11:01:21.209] [exthost] [info] extension host terminating: renderer disconnected for too long (2)
+[2022-05-27 11:01:21.210] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/484d1d86fe96644684ae5c0835234f02/vscode.lock': Marking the lockfile as scheduled to be released in 6000 ms.
+[2022-05-27 11:01:21.243] [exthost] [info] Extension host with pid 6243 exiting with code 0

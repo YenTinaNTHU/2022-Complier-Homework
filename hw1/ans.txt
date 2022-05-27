@@ -1,0 +1,248 @@
+1:#pragma source   on
+2:#pragma token on
+3:
+#key:int
+#id:main
+#punc:(
+#punc:)
+#punc:{
+4:int main() {
+#key:int
+#id:a
+#op:=
+#integer:1
+#punc:;
+5:  int a = 1;
+#key:int
+#id:b
+#op:=
+#integer:-1
+#punc:;
+6:  int b = -1;
+#key:return
+#id:a
+#op:+
+#id:b
+#punc:;
+7:  return a + b;
+8:
+#punc:}
+9:}
+10:
+#key:void
+#id:test1
+#punc:(
+#punc:)
+#punc:{
+11:void test1() {
+#key:int
+#id:x
+#op:=
+#integer:0
+#punc:;
+12:  int x = 0;
+#key:for
+#punc:(
+#key:int
+#id:i
+#op:=
+#integer:0
+#punc:;
+#id:i
+#op:<
+#integer:10
+#punc:;
+#id:i
+#op:++
+#punc:)
+#punc:{
+13:  for( int i = 0; i < 10; i++){
+#id:x
+#op:=
+#id:x
+#op:+
+#integer:1
+#punc:;
+14:    x = x + 1;
+#punc:}
+15:  }
+#key:while
+#punc:(
+#id:x
+#op:>
+#integer:0
+#punc:)
+#punc:{
+16:  while(x > 0){
+#id:x
+#op:--
+#punc:;
+17:    x--;
+#punc:}
+18:  }
+#key:return
+#macro:NULL
+#punc:;
+19:  return NULL;
+#punc:}
+20:}
+21:
+#key:void
+#id:test2
+#punc:(
+#punc:)
+#punc:{
+22:void test2(){
+#key:int
+#id:cnt
+#op:=
+#macro:__COUNTER__
+#punc:;
+23:  int cnt = __COUNTER__;
+#key:int
+#id:max
+#op:=
+#macro:INT_MAX
+#punc:;
+24:  int max = INT_MAX;
+#key:int
+#id:min
+#op:=
+#macro:INT_MIN
+#punc:;
+25:  int min = INT_MIN;
+#key:if
+#punc:(
+#id:max
+#op:<
+#id:min
+#punc:)
+#punc:{
+26:  if (max < min){
+#key:return
+#punc:;
+27:    return;
+#punc:}
+28:  }
+29:  
+#key:int
+#id:a
+#op:=
+#integer:-1
+#punc:;
+30:  int a = -1;
+#key:int
+#id:b
+#op:=
+#integer:0
+#punc:;
+31:  int b = 0;
+#key:float
+#id:c
+#op:=
+#float:-0.
+#punc:;
+32:  float c = -0.;
+#key:float
+#id:d
+#op:=
+#float:0.
+#punc:;
+33:  float d = 0.;
+#key:float
+#id:e
+#op:=
+#float:-.01
+34:  float e = -.01
+#key:if
+#punc:(
+#id:a
+#op:-
+#integer:1
+#op:>=
+#integer:2
+#punc:)
+#punc:{
+35:  if(a - 1 >= 2){
+#id:b
+#op:=
+#integer:-20000
+#punc:;
+36:    b = -20000;
+#id:c
+#op:=
+#float:.2020210
+#punc:;
+37:    c = .2020210;
+#id:d
+#op:=
+#float:-1.
+#punc:;
+38:    d = -1.;
+#id:e
+#op:=
+#float:+.3
+39:    e = +.3
+#punc:}
+40:  }
+41:
+#key:float
+#id:e
+#op:=
+#id:c
+#op:+
+#id:d
+#op:-
+#float:0.
+#punc:;
+42:  float e = c + d - 0.;
+#string:"this is a book."
+43:  "this is a book."
+#string:"that is not a book."
+44:  "that is not a book."
+45:  // this is a comment
+46:  /* this is also a comment */
+47:  /* comment with
+48:    two lines
+49:  */
+50:
+#key:char
+#id:ch1
+#op:=
+#char:'a'
+#punc:;
+51:  char ch1 = 'a';
+#key:char
+#id:ch2
+#op:=
+#char:'\n'
+#punc:;
+52:  char ch2 = '\n';
+#key:int
+#id:a
+#op:=
+#integer:12
+#punc:;
+53:  int a = 12;
+#key:int
+#id:b
+#op:=
+#integer:-0
+#punc:;
+54:  int b = -0;
+#key:char
+#punc:[
+#punc:]
+#id:s
+#op:=
+#string:"  with tab!"
+#punc:;
+55:  char[] s = "  with tab!";
+#key:float
+#id:x
+#op:=
+#punc:.
+#punc:;
+56:  float x = .;
+57:
+#punc:}

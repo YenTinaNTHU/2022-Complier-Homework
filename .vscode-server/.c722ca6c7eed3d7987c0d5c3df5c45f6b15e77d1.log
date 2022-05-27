@@ -1,0 +1,24 @@
+*
+* Visual Studio Code Server
+*
+* By using the software, you agree to
+* the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
+* the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
+*
+Server bound to 127.0.0.1:44043 (IPv4)
+Extension host agent listening on 44043
+
+[12:59:21] Extension host agent started.
+[12:59:21] [127.0.0.1][4af1536c][ManagementConnection] New connection established.
+[12:59:21] [127.0.0.1][c88fcdec][ExtensionHostConnection] New connection established.
+[12:59:21] [127.0.0.1][c88fcdec][ExtensionHostConnection] <4801> Launched Extension Host Process.
+[14:09:21] [127.0.0.1][4af1536c][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/108000208/.vscode-server/bin/c722ca6c7eed3d7987c0d5c3df5c45f6b15e77d1/out/bootstrap.js:1:370)
+    at process.emit (events.js:315:20)
+[17:09:28] [127.0.0.1][4af1536c][ManagementConnection] The reconnection grace time of 3h has expired, so the connection will be disposed.
+[17:09:29] [127.0.0.1][c88fcdec][ExtensionHostConnection] <4801> Extension Host Process exited with code: 0, signal: null.
+Last EH closed, waiting before shutting down
+[17:09:29] Last EH closed, waiting before shutting down
+Last EH closed, shutting down
+[17:14:29] Last EH closed, shutting down

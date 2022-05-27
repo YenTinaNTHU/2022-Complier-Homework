@@ -1,0 +1,52 @@
+1:#pragma source on
+2:#pragma token on
+3:
+4:int main() {
+5:  int a = 1;
+6:  int b = -1;
+7:  return a + b;
+8:
+9:}
+10:
+11:void test1() {
+12:  int x = 0;
+13:  for( int i = 0; i < 10; i++){
+14:    x = x + 1;
+15:  }
+16:  while(x > 0){
+17:    x--;
+18:  }
+19:  return NULL;
+20:}
+21:
+22:void test2(){
+23:  int cnt = __COUNTER__;
+24:  int max = INT_MAX;
+25:  int min = INT_MIN;
+26:  if (max < min){
+27:    return;
+28:  }
+29:  
+30:  int a = -1;
+31:  int b = 0;
+32:  float c = -0.;
+33:  float d = 0.
+34:  if(a - 1 >= 2){
+35:    b = -20000;
+36:    c = .2020210;
+37:    d = -1.;
+38:  }
+39:
+40:  float e = c + d - 0.;
+41:  "this is a book."
+42:  "that is not a book."
+43:  // this is a comment
+44:  /* this is also a comment */
+45:  /* comment with
+46:    two lines
+47:  */
+48:
+49:  char ch1 = 'a';
+50:  char ch2 = '\n';
+51:  int a = 12;
+52:  int b = -0;

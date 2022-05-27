@@ -1,0 +1,1 @@
+golden_parser < ./basic_testcase/input.txt > golden_ans.txt

@@ -1,0 +1,654 @@
+*
+* Visual Studio Code Server
+*
+* By using the software, you agree to
+* the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
+* the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
+*
+Server bound to 127.0.0.1:33617 (IPv4)
+Extension host agent listening on 33617
+
+[02:51:34] Extension host agent started.
+[02:51:34] [127.0.0.1][267ec16d][ExtensionHostConnection] New connection established.
+[02:51:34] [127.0.0.1][7a89154e][ManagementConnection] New connection established.
+[02:51:35] [127.0.0.1][267ec16d][ExtensionHostConnection] <26324> Launched Extension Host Process.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[02:53:19] [127.0.0.1][533dbac9][ManagementConnection] New connection established.
+[02:53:19] [127.0.0.1][c36040f5][ExtensionHostConnection] New connection established.
+[02:53:19] [127.0.0.1][c36040f5][ExtensionHostConnection] <27201> Launched Extension Host Process.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/bash" and args undefined
+[02:53:23] [127.0.0.1][7a89154e][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[02:53:23] [127.0.0.1][267ec16d][ExtensionHostConnection] <26324> Extension Host Process exited with code: 0, signal: null.
+[03:13:11] Getting Manifest... ms-vscode.cpptools-extension-pack
+[03:13:11] Installing extension: ms-vscode.cpptools-extension-pack
+[03:13:12] Getting Manifest... ms-vscode.cpptools
+[03:13:12] Getting Manifest... ms-vscode.cmake-tools
+[03:13:12] Getting Manifest... twxs.cmake
+[03:13:12] Getting Manifest... twxs.cmake
+[03:13:12] Getting Manifest... jeff-hykin.better-cpp-syntax
+[03:13:13] Getting Manifest... ms-vscode.cpptools-themes
+[03:13:13] Getting Manifest... cschlosser.doxdocgen
+[03:13:13] Installing extension: ms-vscode.cpptools
+[03:13:13] Installing extension: ms-vscode.cmake-tools
+[03:13:13] Installing extension: twxs.cmake
+[03:13:13] Extension is already requested to install twxs.cmake
+[03:13:13] Installing extension: jeff-hykin.better-cpp-syntax
+[03:13:13] Installing extension: ms-vscode.cpptools-themes
+[03:13:13] Installing extension: cschlosser.doxdocgen
+[03:13:13] Downloaded extension: ms-vscode.cpptools-themes /home/108000208/.vscode-server/data/CachedExtensionVSIXs/ms-vscode.cpptools-themes-1.0.0
+[03:13:14] Downloaded extension: twxs.cmake /home/108000208/.vscode-server/data/CachedExtensionVSIXs/twxs.cmake-0.0.17
+[03:13:14] Extracted extension to /home/108000208/.vscode-server/extensions/.220fa428-5aa7-47d6-8bf8-11963359ee65: ms-vscode.cpptools-themes
+[03:13:14] Renamed to /home/108000208/.vscode-server/extensions/ms-vscode.cpptools-themes-1.0.0
+[03:13:14] Extracting completed. ms-vscode.cpptools-themes
+[03:13:14] Extracted extension to /home/108000208/.vscode-server/extensions/.61d42ff3-1c9f-4937-95a4-d17d19c92d50: twxs.cmake
+[03:13:14] Downloaded extension: jeff-hykin.better-cpp-syntax /home/108000208/.vscode-server/data/CachedExtensionVSIXs/jeff-hykin.better-cpp-syntax-1.15.14
+[03:13:14] Renamed to /home/108000208/.vscode-server/extensions/twxs.cmake-0.0.17
+[03:13:14] Extracting completed. twxs.cmake
+[03:13:14] Extracted extension to /home/108000208/.vscode-server/extensions/.39dbdead-5306-4692-811e-221060ea6c71: jeff-hykin.better-cpp-syntax
+[03:13:14] Downloaded extension: ms-vscode.cmake-tools /home/108000208/.vscode-server/data/CachedExtensionVSIXs/ms-vscode.cmake-tools-1.10.5
+[03:13:14] Renamed to /home/108000208/.vscode-server/extensions/jeff-hykin.better-cpp-syntax-1.15.14
+[03:13:14] Extracting completed. jeff-hykin.better-cpp-syntax
+[03:13:14] Extracted extension to /home/108000208/.vscode-server/extensions/.b7b60259-7992-4663-81b5-3e8f018832d2: ms-vscode.cmake-tools
+[03:13:14] Renamed to /home/108000208/.vscode-server/extensions/ms-vscode.cmake-tools-1.10.5
+[03:13:14] Downloaded extension: cschlosser.doxdocgen /home/108000208/.vscode-server/data/CachedExtensionVSIXs/cschlosser.doxdocgen-1.4.0
+[03:13:14] Extracting completed. ms-vscode.cmake-tools
+[03:13:15] Extracted extension to /home/108000208/.vscode-server/extensions/.7c34e3b6-d880-45d6-a7b3-194b579a41f2: cschlosser.doxdocgen
+[03:13:15] Renamed to /home/108000208/.vscode-server/extensions/cschlosser.doxdocgen-1.4.0
+[03:13:15] Extracting completed. cschlosser.doxdocgen
+[03:13:17] Downloaded extension: ms-vscode.cpptools /home/108000208/.vscode-server/data/CachedExtensionVSIXs/ms-vscode.cpptools-1.9.8-linux-x64
+[03:13:19] Extracted extension to /home/108000208/.vscode-server/extensions/.0cff7162-bbb2-4008-bed2-dc70bb8a1679: ms-vscode.cpptools
+[03:13:20] Renamed to /home/108000208/.vscode-server/extensions/ms-vscode.cpptools-1.9.8-linux-x64
+[03:13:20] Extracting completed. ms-vscode.cpptools
+[03:13:20] Downloaded extension: ms-vscode.cpptools-extension-pack /home/108000208/.vscode-server/data/CachedExtensionVSIXs/ms-vscode.cpptools-extension-pack-1.2.0
+[03:13:20] Extracted extension to /home/108000208/.vscode-server/extensions/.10fa484f-5bd4-4ede-a242-2099c1d1cc05: ms-vscode.cpptools-extension-pack
+[03:13:20] Renamed to /home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0
+[03:13:20] Extracting completed. ms-vscode.cpptools-extension-pack
+[03:13:20] Extension installed successfully: ms-vscode.cpptools-themes
+[03:13:20] Extension installed successfully: twxs.cmake
+[03:13:20] Extension installed successfully: jeff-hykin.better-cpp-syntax
+[03:13:20] Extension installed successfully: ms-vscode.cmake-tools
+[03:13:20] Extension installed successfully: cschlosser.doxdocgen
+[03:13:20] Extension installed successfully: ms-vscode.cpptools
+[03:13:20] Extension installed successfully: ms-vscode.cpptools-extension-pack
+[03:13:20] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+[03:15:34] [127.0.0.1][533dbac9][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[03:15:34] [127.0.0.1][c36040f5][ExtensionHostConnection] <27201> Extension Host Process exited with code: 0, signal: null.
+Last EH closed, waiting before shutting down
+[03:15:34] Last EH closed, waiting before shutting down
+Got delay-shutdown request while in shutdown timeout, delaying
+[03:16:20] Got delay-shutdown request while in shutdown timeout, delaying
+Cancelling previous shutdown timeout
+[03:16:20] Cancelling previous shutdown timeout
+[03:16:20] [127.0.0.1][efdfedfd][ManagementConnection] New connection established.
+[03:16:20] [127.0.0.1][59799c12][ExtensionHostConnection] New connection established.
+[03:16:20] [127.0.0.1][59799c12][ExtensionHostConnection] <6243> Launched Extension Host Process.
+[03:16:20] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/bash" and args []
+New EH opened, aborting shutdown
+[03:21:20] New EH opened, aborting shutdown
+[03:59:46] [127.0.0.1][e594b7f0][ManagementConnection] New connection established.
+[03:59:46] [127.0.0.1][5852c94c][ExtensionHostConnection] New connection established.
+[03:59:46] [127.0.0.1][5852c94c][ExtensionHostConnection] <14022> Launched Extension Host Process.
+[03:59:46] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/bash" and args undefined
+[12:21:43] [127.0.0.1][e594b7f0][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[12:21:43] [127.0.0.1][5852c94c][ExtensionHostConnection] <14022> Extension Host Process exited with code: 0, signal: null.
+[16:53:55] [127.0.0.1][38a9faac][ManagementConnection] New connection established.
+[16:53:55] [127.0.0.1][a2f4f909][ExtensionHostConnection] New connection established.
+[16:53:55] [127.0.0.1][a2f4f909][ExtensionHostConnection] <31142> Launched Extension Host Process.
+[16:53:55] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/bash" and args undefined
+[01:49:12] Getting Manifest... fabianlauer.vs-code-xml-format
+[01:49:12] Installing extension: fabianlauer.vs-code-xml-format
+[01:49:13] Downloaded extension: fabianlauer.vs-code-xml-format /home/108000208/.vscode-server/data/CachedExtensionVSIXs/fabianlauer.vs-code-xml-format-0.1.5
+[01:49:14] Extracted extension to /home/108000208/.vscode-server/extensions/.a897ae9a-0f54-433b-8c3d-8914593a4367: fabianlauer.vs-code-xml-format
+[01:49:14] Renamed to /home/108000208/.vscode-server/extensions/fabianlauer.vs-code-xml-format-0.1.5
+[01:49:14] Extracting completed. fabianlauer.vs-code-xml-format
+[01:49:14] Extension installed successfully: fabianlauer.vs-code-xml-format
+[01:50:16] Uninstalling extension: fabianlauer.vs-code-xml-format
+[01:50:16] Detected extension removed from another source fabianlauer.vs-code-xml-format
+[01:50:16] Successfully uninstalled extension: fabianlauer.vs-code-xml-format
+[01:50:39] Getting Manifest... redhat.vscode-xml
+[01:50:39] Installing extension: redhat.vscode-xml
+[01:50:40] Downloaded extension: redhat.vscode-xml /home/108000208/.vscode-server/data/CachedExtensionVSIXs/redhat.vscode-xml-0.20.0
+[01:50:40] Extracted extension to /home/108000208/.vscode-server/extensions/.6bee332f-9b03-424f-b811-2df99af3d08b: redhat.vscode-xml
+[01:50:40] Renamed to /home/108000208/.vscode-server/extensions/redhat.vscode-xml-0.20.0
+[01:50:40] Extracting completed. redhat.vscode-xml
+[01:50:40] Extension installed successfully: redhat.vscode-xml
+[01:51:00] Uninstalling extension: redhat.vscode-xml
+[01:51:00] Detected extension removed from another source redhat.vscode-xml
+[01:51:00] Successfully uninstalled extension: redhat.vscode-xml
+[01:51:28] Getting Manifest... mikeburgh.xml-format
+[01:51:28] Installing extension: mikeburgh.xml-format
+[01:51:28] Downloaded extension: mikeburgh.xml-format /home/108000208/.vscode-server/data/CachedExtensionVSIXs/mikeburgh.xml-format-1.1.2
+[01:51:28] Extracted extension to /home/108000208/.vscode-server/extensions/.4a6cf042-de1b-435c-913a-6cf84d82bd53: mikeburgh.xml-format
+[01:51:28] Renamed to /home/108000208/.vscode-server/extensions/mikeburgh.xml-format-1.1.2
+[01:51:28] Extracting completed. mikeburgh.xml-format
+[01:51:28] Extension installed successfully: mikeburgh.xml-format
+[10:25:00] [127.0.0.1][7f899776][ManagementConnection] New connection established.
+[10:25:00] [127.0.0.1][7c528d42][ExtensionHostConnection] New connection established.
+[10:25:00] [127.0.0.1][7c528d42][ExtensionHostConnection] <7228> Launched Extension Host Process.
+[10:25:01] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  INFO Persistent process "14": Replaying 103 chars and 1 size events
+[10:27:55] [127.0.0.1][c101bb98][ManagementConnection] New connection established.
+[10:27:55] [127.0.0.1][c7c5c71a][ExtensionHostConnection] New connection established.
+[10:27:55] [127.0.0.1][c7c5c71a][ExtensionHostConnection] <8023> Launched Extension Host Process.
+[10:27:56] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  INFO Persistent process "24": Replaying 46 chars and 1 size events
+[10:37:02] [127.0.0.1][efdfedfd][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/out/bootstrap.js:1:370)
+    at process.emit (node:events:390:28)
+Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/out/bootstrap.js:1:370)
+    at process.emit (node:events:390:28)
+[10:37:02] [127.0.0.1][38a9faac][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+[10:55:57] [127.0.0.1][7f899776][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[10:56:21] [127.0.0.1][efdfedfd][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+[10:56:21] [127.0.0.1][38a9faac][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+[10:56:21] [127.0.0.1][2df91550][ManagementConnection] New connection established.
+[10:56:28] [127.0.0.1][c9a9032e][ExtensionHostConnection] New connection established.
+[10:56:28] [127.0.0.1][c9a9032e][ExtensionHostConnection] <17097> Launched Extension Host Process.
+[10:56:28] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.js-debug-companion with /home/108000208/.vscode-server/extensions/ms-vscode.js-debug-companion-1.0.18.
+Overwriting extension /home/108000208/.vscode-server/bin/8dfae7a5cd50421d10cd99cb873990460525a898/extensions/ms-vscode.references-view with /home/108000208/.vscode-server/extensions/ms-vscode.references-view-0.0.89.
+[IPC Library: Pty Host]  INFO Persistent process "14": Replaying 117 chars and 1 size events
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata:true' -O - http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata:true' http://169.254.169.254/metadata/instance?api-version=2019-03-11\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/latest/meta-data/instance-id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/latest/meta-data/instance-id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    '\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q  -O - http://169.254.169.254/metadata/v1/id\n' +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    '\t\tcurl --connect-timeout 7 -s  http://169.254.169.254/metadata/v1/id\n' +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[IPC Library: Pty Host]  WARN Shell integration cannot be enabled for executable "/bin/sh" and args [
+  '-c',
+  'wget --version > /dev/null\n' +
+    'if [ $? -eq 0 ]\n' +
+    'then\n' +
+    "\twget --connect-timeout=7 --tries=1 --dns-timeout=7 -q --header='Metadata-Flavor:Google' -O - http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    'else\n' +
+    '\tcurl --version > /dev/null\n' +
+    '\tif [ $? -eq 0 ]\n' +
+    '\tthen\n' +
+    "\t\tcurl --connect-timeout 7 -s --header='Metadata-Flavor:Google' http://metadata.google.internal/computeMetadata/v1/instance/id\n" +
+    '\tfi\n' +
+    'fi\n' +
+    'exit 0'
+]
+[11:00:56] [127.0.0.1][c9a9032e][ExtensionHostConnection] The client has reconnected.
+[11:01:21] [127.0.0.1][efdfedfd][ManagementConnection] The reconnection short grace time of 5m has expired, so the connection will be disposed.
+[11:01:21] [127.0.0.1][38a9faac][ManagementConnection] The reconnection short grace time of 5m has expired, so the connection will be disposed.
+[11:01:21] [127.0.0.1][7c528d42][ExtensionHostConnection] <7228> Extension Host Process exited with code: 0, signal: null.
+[11:01:21] [127.0.0.1][59799c12][ExtensionHostConnection] <6243> Extension Host Process exited with code: 0, signal: null.
+[11:01:21] [127.0.0.1][a2f4f909][ExtensionHostConnection] <31142> Extension Host Process exited with code: 0, signal: null.

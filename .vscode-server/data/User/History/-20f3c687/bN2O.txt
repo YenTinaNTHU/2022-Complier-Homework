@@ -1,0 +1,6 @@
+char c = a + (a * b) - b;
+int d = c;
+char e = 0, f = 10;
+char g = (e * f) + e - f;
+long h = g;
+const signed long long int i;

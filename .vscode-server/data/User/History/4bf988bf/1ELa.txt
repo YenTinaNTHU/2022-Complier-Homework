@@ -1,0 +1,2 @@
+
+<scalar_decl>intb=<expr>2</expr>;</scalar_decl><scalar_decl>int*c;</scalar_decl>

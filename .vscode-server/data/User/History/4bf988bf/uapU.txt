@@ -1,0 +1,30 @@
+<scalar_decl>
+	inta,*b,c;
+</scalar_decl>
+<scalar_decl>
+	inta=123;
+</scalar_decl>
+<array_decl>
+	inta[1][3];
+</array_decl>
+<array_decl>
+	floata[1],b[2][3]={{0,1,2},{3,4,5}};
+</array_decl>
+<func_decl>
+	intfoo();
+</func_decl>
+<func_decl>
+	intgoo(inta);
+</func_decl>
+<func_decl>
+	voidhoo(inta,int*b);
+</func_decl>
+<func_def>
+	intfoo(){compound_stmt};
+</func_def>
+<func_def>
+	intgoo(inta){compound_stmt};
+</func_def>
+<func_def>
+	voidhoo(inta,int*b){compound_stmt};
+</func_def>

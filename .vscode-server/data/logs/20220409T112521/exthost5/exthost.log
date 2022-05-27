@@ -1,0 +1,16 @@
+[2022-04-09 14:26:03.762] [exthost] [info] Extension host with pid 31977 started
+[2022-04-09 14:26:03.763] [exthost] [error] Error: EEXIST: file already exists, open '/home/108000208/.vscode-server/data/User/workspaceStorage/53dcae353079182abe5722a04511803e/vscode.lock'
+[2022-04-09 14:26:03.764] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/53dcae353079182abe5722a04511803e/vscode.lock': Could not acquire lock, checking if the file is stale.
+[2022-04-09 14:26:03.766] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/53dcae353079182abe5722a04511803e/vscode.lock': The lock does not look stale, elapsed: 295 ms, giving up.
+[2022-04-09 14:26:03.842] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/53dcae353079182abe5722a04511803e-1/vscode.lock': Lock acquired.
+[2022-04-09 14:26:03.869] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: true, activationEvent: '*'
+[2022-04-09 14:26:03.874] [exthost] [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+[2022-04-09 14:26:03.878] [exthost] [info] ExtensionService#_doActivateExtension vscode.ipynb, startup: true, activationEvent: '*'
+[2022-04-09 14:26:04.054] [exthost] [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+[2022-04-09 14:26:04.116] [exthost] [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+[2022-04-09 14:26:04.189] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onStartupFinished'
+[2022-04-09 14:26:04.204] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+[2022-04-09 14:26:04.208] [exthost] [info] Eager extensions activated
+[2022-04-09 17:20:26.014] [exthost] [info] extension host terminating: renderer disconnected for too long (2)
+[2022-04-09 17:20:26.015] [exthost] [info] Lock '/home/108000208/.vscode-server/data/User/workspaceStorage/53dcae353079182abe5722a04511803e-1/vscode.lock': Marking the lockfile as scheduled to be released in 6000 ms.
+[2022-04-09 17:20:26.027] [exthost] [info] Extension host with pid 31977 exiting with code 0
