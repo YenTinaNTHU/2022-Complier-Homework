@@ -117,3 +117,6 @@ idents
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
+
+    | '*' ID { char *str = strdup($1); strcat(str, $2); $$ = str; }
+;

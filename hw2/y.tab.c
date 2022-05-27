@@ -579,11 +579,11 @@ static const yytype_uint16 yyrline[] =
      191,   192,   196,   200,   207,   214,   221,   228,   235,   242,
      249,   256,   263,   270,   277,   284,   291,   298,   305,   312,
      319,   326,   333,   340,   347,   354,   361,   368,   375,   382,
-     389,   390,   391,   392,   393,   394,   395,   399,   400,   408,
-     416,   417,   425,   433,   440,   450,   454,   461,   465,   469,
-     476,   480,   484,   494,   498,   508,   515,   525,   531,   537,
-     541,   551,   558,   565,   572,   582,   589,   599,   606,   613,
-     623,   633,   640,   647,   651,   660
+     389,   396,   403,   410,   417,   418,   419,   423,   424,   432,
+     440,   441,   449,   457,   464,   474,   478,   485,   489,   493,
+     500,   504,   508,   518,   522,   532,   539,   549,   555,   561,
+     565,   575,   582,   589,   596,   606,   613,   623,   630,   637,
+     647,   657,   664,   671,   675,   684
 };
 #endif
 
@@ -2281,32 +2281,76 @@ yyreduce:
 #line 2282 "y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 100:
+#line 390 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = add_tag("expr", str);
+    }
+#line 2293 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 101:
+#line 397 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = add_tag("expr", str);
+    }
+#line 2304 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 102:
+#line 404 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = add_tag("expr", str);
+    }
+#line 2315 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 103:
+#line 411 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = add_tag("expr", str);
+    }
+#line 2326 "y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 104:
-#line 393 "parser.y" /* yacc.c:1646  */
+#line 417 "parser.y" /* yacc.c:1646  */
     { (yyval.string_v) = add_tag("expr", (yyvsp[0].string_v)); }
-#line 2288 "y.tab.c" /* yacc.c:1646  */
+#line 2332 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 394 "parser.y" /* yacc.c:1646  */
+#line 418 "parser.y" /* yacc.c:1646  */
     { (yyval.string_v) = add_tag("expr", (yyvsp[0].string_v)); }
-#line 2294 "y.tab.c" /* yacc.c:1646  */
+#line 2338 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 395 "parser.y" /* yacc.c:1646  */
-    {(yyval.string_v) = "NULL";}
-#line 2300 "y.tab.c" /* yacc.c:1646  */
+#line 419 "parser.y" /* yacc.c:1646  */
+    {(yyval.string_v) = add_tag("expr", "0");}
+#line 2344 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 399 "parser.y" /* yacc.c:1646  */
+#line 423 "parser.y" /* yacc.c:1646  */
     { (yyval.string_v) = itoa((yyvsp[0].int_v)); }
-#line 2306 "y.tab.c" /* yacc.c:1646  */
+#line 2350 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 401 "parser.y" /* yacc.c:1646  */
+#line 425 "parser.y" /* yacc.c:1646  */
     {
       char* s1 = itoa((yyvsp[0].int_v));
       size_t n = strlen(s1) + 1;
@@ -2314,11 +2358,11 @@ yyreduce:
       strcat(str, "+"); strcat(str, add_tag("expr", s1));
       (yyval.string_v) = str;
     }
-#line 2318 "y.tab.c" /* yacc.c:1646  */
+#line 2362 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 409 "parser.y" /* yacc.c:1646  */
+#line 433 "parser.y" /* yacc.c:1646  */
     {
       char* s1 = itoa(-(yyvsp[0].int_v));
       size_t n = strlen(s1) + 1;
@@ -2326,17 +2370,17 @@ yyreduce:
       strcat(str, "-"); strcat(str, add_tag("expr", s1));
       (yyval.string_v) = str;
     }
-#line 2330 "y.tab.c" /* yacc.c:1646  */
+#line 2374 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 416 "parser.y" /* yacc.c:1646  */
+#line 440 "parser.y" /* yacc.c:1646  */
     { (yyval.string_v) = ftoa((yyvsp[0].float_v)); }
-#line 2336 "y.tab.c" /* yacc.c:1646  */
+#line 2380 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 418 "parser.y" /* yacc.c:1646  */
+#line 442 "parser.y" /* yacc.c:1646  */
     {
       char* s1 = ftoa((yyvsp[0].float_v));
       size_t n = strlen(s1) + 1;
@@ -2344,11 +2388,11 @@ yyreduce:
       strcat(str, "+"); strcat(str, add_tag("expr", s1));
       (yyval.string_v) = str;
     }
-#line 2348 "y.tab.c" /* yacc.c:1646  */
+#line 2392 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 426 "parser.y" /* yacc.c:1646  */
+#line 450 "parser.y" /* yacc.c:1646  */
     {
       char* s1 = ftoa(-(yyvsp[0].float_v));
       size_t n = strlen(s1) + 1;
@@ -2356,120 +2400,90 @@ yyreduce:
       strcat(str, "-"); strcat(str, add_tag("expr", s1));
       (yyval.string_v) = str;
     }
-#line 2360 "y.tab.c" /* yacc.c:1646  */
+#line 2404 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 434 "parser.y" /* yacc.c:1646  */
+#line 458 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
-    }
-#line 2371 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 114:
-#line 441 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
-    }
-#line 2382 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 115:
-#line 451 "parser.y" /* yacc.c:1646  */
-    {
-      (yyval.string_v) = strdup((yyvsp[0].string_v));
-    }
-#line 2390 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 116:
-#line 455 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
-    }
-#line 2401 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 117:
-#line 461 "parser.y" /* yacc.c:1646  */
-    { (yyval.string_v) = ""; }
-#line 2407 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 118:
-#line 466 "parser.y" /* yacc.c:1646  */
-    {
-      (yyval.string_v) = strdup((yyvsp[0].string_v));
     }
 #line 2415 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 119:
-#line 470 "parser.y" /* yacc.c:1646  */
+  case 114:
+#line 465 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
 #line 2426 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 120:
-#line 476 "parser.y" /* yacc.c:1646  */
-    { (yyval.string_v) = ""; }
-#line 2432 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 121:
-#line 481 "parser.y" /* yacc.c:1646  */
+  case 115:
+#line 475 "parser.y" /* yacc.c:1646  */
     {
       (yyval.string_v) = strdup((yyvsp[0].string_v));
     }
-#line 2440 "y.tab.c" /* yacc.c:1646  */
+#line 2434 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 122:
-#line 485 "parser.y" /* yacc.c:1646  */
+  case 116:
+#line 479 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
+#line 2445 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 117:
+#line 485 "parser.y" /* yacc.c:1646  */
+    { (yyval.string_v) = ""; }
 #line 2451 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 123:
-#line 495 "parser.y" /* yacc.c:1646  */
+  case 118:
+#line 490 "parser.y" /* yacc.c:1646  */
     {
       (yyval.string_v) = strdup((yyvsp[0].string_v));
     }
 #line 2459 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 124:
-#line 499 "parser.y" /* yacc.c:1646  */
+  case 119:
+#line 494 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
 #line 2470 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 125:
+  case 120:
+#line 500 "parser.y" /* yacc.c:1646  */
+    { (yyval.string_v) = ""; }
+#line 2476 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 121:
+#line 505 "parser.y" /* yacc.c:1646  */
+    {
+      (yyval.string_v) = strdup((yyvsp[0].string_v));
+    }
+#line 2484 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 122:
 #line 509 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
@@ -2477,33 +2491,19 @@ yyreduce:
       strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
-#line 2481 "y.tab.c" /* yacc.c:1646  */
+#line 2495 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 126:
-#line 516 "parser.y" /* yacc.c:1646  */
+  case 123:
+#line 519 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
-    }
-#line 2492 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 127:
-#line 525 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
+      (yyval.string_v) = strdup((yyvsp[0].string_v));
     }
 #line 2503 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 128:
-#line 531 "parser.y" /* yacc.c:1646  */
+  case 124:
+#line 523 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
@@ -2513,43 +2513,57 @@ yyreduce:
 #line 2514 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 129:
-#line 537 "parser.y" /* yacc.c:1646  */
-    { (yyval.string_v) = (yyvsp[0].string_v);}
-#line 2520 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 130:
-#line 542 "parser.y" /* yacc.c:1646  */
+  case 125:
+#line 533 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
-#line 2531 "y.tab.c" /* yacc.c:1646  */
+#line 2525 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 131:
-#line 552 "parser.y" /* yacc.c:1646  */
+  case 126:
+#line 540 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
-#line 2542 "y.tab.c" /* yacc.c:1646  */
+#line 2536 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 132:
-#line 559 "parser.y" /* yacc.c:1646  */
+  case 127:
+#line 549 "parser.y" /* yacc.c:1646  */
     {
-      (yyval.string_v) = strdup((yyvsp[0].string_v));
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
     }
-#line 2550 "y.tab.c" /* yacc.c:1646  */
+#line 2547 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 133:
+  case 128:
+#line 555 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
+#line 2558 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 129:
+#line 561 "parser.y" /* yacc.c:1646  */
+    { (yyval.string_v) = (yyvsp[0].string_v);}
+#line 2564 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 130:
 #line 566 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
@@ -2557,66 +2571,52 @@ yyreduce:
       strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
-#line 2561 "y.tab.c" /* yacc.c:1646  */
+#line 2575 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 134:
-#line 573 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
-    }
-#line 2572 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 135:
-#line 583 "parser.y" /* yacc.c:1646  */
+  case 131:
+#line 576 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
-#line 2583 "y.tab.c" /* yacc.c:1646  */
+#line 2586 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 136:
-#line 590 "parser.y" /* yacc.c:1646  */
+  case 132:
+#line 583 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
+      (yyval.string_v) = strdup((yyvsp[0].string_v));
     }
 #line 2594 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 137:
-#line 600 "parser.y" /* yacc.c:1646  */
+  case 133:
+#line 590 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
 #line 2605 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 138:
-#line 607 "parser.y" /* yacc.c:1646  */
+  case 134:
+#line 597 "parser.y" /* yacc.c:1646  */
     {
-      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
 #line 2616 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 139:
-#line 614 "parser.y" /* yacc.c:1646  */
+  case 135:
+#line 607 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
@@ -2626,64 +2626,108 @@ yyreduce:
 #line 2627 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 140:
-#line 624 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-4].string_v)) + strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v))  + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-4].string_v)); strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
-      (yyval.string_v) = str;
-    }
-#line 2638 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 141:
-#line 634 "parser.y" /* yacc.c:1646  */
-    {
-      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));;
-      (yyval.string_v) = str;
-    }
-#line 2649 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 142:
-#line 641 "parser.y" /* yacc.c:1646  */
+  case 136:
+#line 614 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
       (yyval.string_v) = str;
     }
+#line 2638 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 137:
+#line 624 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
+#line 2649 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 138:
+#line 631 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
 #line 2660 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 143:
-#line 647 "parser.y" /* yacc.c:1646  */
-    {(yyval.string_v) = "";}
-#line 2666 "y.tab.c" /* yacc.c:1646  */
+  case 139:
+#line 638 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
+#line 2671 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 144:
-#line 652 "parser.y" /* yacc.c:1646  */
+  case 140:
+#line 648 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-4].string_v)) + strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v))  + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-4].string_v)); strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
+#line 2682 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 141:
+#line 658 "parser.y" /* yacc.c:1646  */
     {
       size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));;
       (yyval.string_v) = str;
     }
-#line 2677 "y.tab.c" /* yacc.c:1646  */
+#line 2693 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 142:
+#line 665 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-3].string_v)) + strlen((yyvsp[-2].string_v)) + strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-3].string_v)); strcat(str, (yyvsp[-2].string_v)); strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));
+      (yyval.string_v) = str;
+    }
+#line 2704 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 143:
+#line 671 "parser.y" /* yacc.c:1646  */
+    {(yyval.string_v) = "";}
+#line 2710 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 144:
+#line 676 "parser.y" /* yacc.c:1646  */
+    {
+      size_t n = strlen((yyvsp[-1].string_v)) + strlen((yyvsp[0].string_v));
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, (yyvsp[-1].string_v)); strcat(str, (yyvsp[0].string_v));;
+      (yyval.string_v) = str;
+    }
+#line 2721 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 145:
-#line 661 "parser.y" /* yacc.c:1646  */
+#line 685 "parser.y" /* yacc.c:1646  */
     { (yyval.string_v) = "{compound_stmt}";}
-#line 2683 "y.tab.c" /* yacc.c:1646  */
+#line 2727 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2687 "y.tab.c" /* yacc.c:1646  */
+#line 2731 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2911,7 +2955,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 664 "parser.y" /* yacc.c:1906  */
+#line 688 "parser.y" /* yacc.c:1906  */
 
 int main(void)
 {

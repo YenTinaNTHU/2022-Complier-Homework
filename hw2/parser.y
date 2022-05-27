@@ -387,12 +387,36 @@ expr
       $$ = add_tag("expr", str);
     }
   | '-' expr %prec UMINUS
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
   | '+' expr %prec UPLUS
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
   | '*' expr %prec DEREF
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
   | '&' expr %prec ADDR
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("expr", str);
+    }
 	| literal { $$ = add_tag("expr", $1); }
   | variable { $$ = add_tag("expr", $1); }
-  | NUL {$$ = "NULL";}
+  | NUL {$$ = add_tag("expr", "0");}
 ;
 
 literal

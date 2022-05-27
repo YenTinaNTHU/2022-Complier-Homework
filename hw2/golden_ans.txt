@@ -1,1 +1,25 @@
-<scalar_decl>ints=<expr><expr>b</expr>=<expr>c</expr></expr>;</scalar_decl><scalar_decl>int*a=<expr>*<expr>(<expr>&<expr>b</expr></expr>)</expr></expr>;</scalar_decl><scalar_decl>inta=<expr>-<expr>1</expr></expr>;</scalar_decl><scalar_decl>charc=<expr>+<expr>100.300000</expr></expr>;</scalar_decl><scalar_decl>inta,*b,c=<expr>'A'</expr>;</scalar_decl><scalar_decl>inta=<expr>123</expr>;</scalar_decl><array_decl>inta[<expr>1</expr>][<expr>23</expr>];</array_decl><array_decl>floata[<expr>1</expr>],b[<expr><expr>1</expr>+<expr>1</expr></expr>][<expr>3</expr>]={{<expr>0</expr>,<expr>1</expr>,<expr>2</expr>},{<expr>3</expr>,<expr>4</expr>,<expr>5</expr>}};</array_decl><func_decl>intfoo();</func_decl><func_decl>intgoo(inta);</func_decl><func_decl>voidhoo(inta,int*b);</func_decl><func_def>intfoo(){}</func_def><func_def>intgoo(inta){}</func_def><func_def>voidhoo(inta,int*b){}</func_def><scalar_decl>constinti=<expr><expr><expr>1</expr>+<expr>a[<expr>2</expr>]</expr></expr>+<expr>c</expr></expr>;</scalar_decl><scalar_decl>chara=<expr>'c'</expr>;</scalar_decl><scalar_decl>charb=<expr>'\t'</expr>;</scalar_decl><scalar_decl>intS=<expr>"s"</expr>;</scalar_decl><scalar_decl>char*s1=<expr>"a\t\n"</expr>;</scalar_decl>
+<scalar_decl>inta=
+    <expr>
+        <expr>
+            <expr>
+                <expr>1</expr>+
+                <expr>1</expr>
+            </expr>+
+            <expr>*
+                <expr>(
+                    <expr>a</expr>)
+                </expr>
+            </expr>
+        </expr>+
+        <expr>&
+            <expr>(
+                <expr>b[
+                    <expr>40</expr>]
+                </expr>)
+            </expr>
+        </expr>
+    </expr>;
+</scalar_decl>
+<scalar_decl>char*c=
+    <expr>0</expr>;
+</scalar_decl>
