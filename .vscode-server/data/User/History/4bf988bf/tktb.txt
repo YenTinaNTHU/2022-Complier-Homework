@@ -1,8 +1,0 @@
-<scalar_decl>
-	inta,*b,c
-</scalar_decl>
-;
-<scalar_decl>
-	inta=123
-</scalar_decl>
-;

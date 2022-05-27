@@ -1,7 +1,0 @@
-all:$(obj)
-    flex scanner.l
-    gcc lex.yy.c -lfl -o scanner
-
-.PHONY:clean
-clean:
- rm -rf $(obj) $(exe)

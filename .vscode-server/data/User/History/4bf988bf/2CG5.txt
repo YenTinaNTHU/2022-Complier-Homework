@@ -1,1 +1,0 @@
-<scalar_decl>chara=<expr><expr>1</exp;</scalar_decl><scalar_decl>intb=<expr>2</expr>;</scalar_decl><scalar_decl>int*c;</scalar_decl>

@@ -1,6 +1,0 @@
-all:lex.yy.c
-    gcc lex.yy.c -lfl -o scanner
-
-.PHONY:clean
-clean:
- rm -rf $(obj) $(exe)

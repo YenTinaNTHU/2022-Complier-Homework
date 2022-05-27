@@ -1,6 +1,0 @@
-lex.yy.c:scanner.l
-    flex scanner.l
-scanner:lex.yy.c
-    gcc lex.yy.c -lfl
-clean:
-    rm scanner lex.yy.c
