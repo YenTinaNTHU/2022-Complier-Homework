@@ -133,3 +133,11 @@
 [2022-05-27 12:48:29.122] [remoteagent] [info] [127.0.0.1][63ec8368][ExtensionHostConnection] New connection established.
 [2022-05-27 12:48:29.189] [remoteagent] [info] [127.0.0.1][63ec8368][ExtensionHostConnection] <7030> Launched Extension Host Process.
 [2022-05-27 12:48:29.262] [remoteagent] [warning] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.
+[2022-05-27 12:49:28.651] [remoteagent] [info] [127.0.0.1][d44b6144][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-05-27 12:49:28.688] [remoteagent] [info] [127.0.0.1][63ec8368][ExtensionHostConnection] <7030> Extension Host Process exited with code: 0, signal: null.
+[2022-05-27 12:52:53.070] [remoteagent] [info] [127.0.0.1][2df91550][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-05-27 12:52:53.082] [remoteagent] [info] [127.0.0.1][c9a9032e][ExtensionHostConnection] <17097> Extension Host Process exited with code: 0, signal: null.
+[2022-05-27 12:53:54.501] [remoteagent] [info] [127.0.0.1][6952703f][ManagementConnection] New connection established.
+[2022-05-27 12:53:54.549] [remoteagent] [info] [127.0.0.1][13873fde][ExtensionHostConnection] New connection established.
+[2022-05-27 12:53:54.607] [remoteagent] [info] [127.0.0.1][13873fde][ExtensionHostConnection] <9597> Launched Extension Host Process.
+[2022-05-27 12:53:54.657] [remoteagent] [warning] [/home/108000208/.vscode-server/extensions/ms-vscode.cpptools-extension-pack-1.2.0]: property `extensionKind` can be defined only if property `main` is also defined.

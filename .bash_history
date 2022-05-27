@@ -209,3 +209,348 @@ flex scanner.l
 byacc -d parser.y
 gcc –o parser lex.yy.c y.tab.c -lfl
 gcc -o parser lex.yy.c y.tab.c -lfl
+cd ..
+ls
+cd ..
+ls
+cd scoring
+cd testcase
+ls
+cd hw2_bonus
+ls
+cd basic_testcase/
+ls
+cd ..
+cp basic_testcase/ ./../../108000208/hw2
+cp -r ./ basic_testcase/ ./../../108000208/hw2
+cd ./../../108000208/hw2
+clear
+sh test.sh
+flex scanner.l
+gcc lex.yy.c -lfl
+yacc –d parser.y
+yacc parser.y
+yacc -d parser.y
+clear
+yacc -d parser.y
+flex scanner.l
+gcc lex.yy.c -lfl
+yacc -d parser.y
+flex scanner.l
+gcc lex.yy.c -lfl
+clear
+flex scanner.l
+gcc lex.yy.c -lfl
+yacc -d parser.y
+gcc lex.yy.c -lfl
+yacc -d parser.y
+flex scanner.l
+gcc lex.yy.c -lfl
+clear
+yacc -d parser.y
+flex scanner.l
+gcc lex.yy.c -lfl
+sh script.sh
+parser < ./basic_testcase/input.txt > ans.txt
+golden_parser < ./basic_testcase/input.txt > golden_ans.txt
+./parser < ./basic_testcase/input.txt > ans.txt
+./parser
+sh script.sh
+./parser
+./parser < ./basic_testcase/input.txt > ans.txt
+yacc -v to
+yacc -v
+yacc -d parser.y
+yacc -v parser.y
+./parser < ./basic_testcase/input.txt > ans.txt
+sh script.sh
+./parser < ./basic_testcase/input.txt > ans.txt
+sh script.sh
+./parser < ./basic_testcase/input.txt > ans.txt
+test.sh
+./test.sh
+chmod test.sh 777
+chmod 777 test.sh
+./test.sh
+cd ..
+ld
+ls
+cd ..
+ls
+cd testcase/
+ls
+cd hw2
+cd hw2_bonus/
+ls
+cd basic_testcase/input.txt ./../../108000208/hw2
+cp basic_testcase/input.txt ./../../108000208/hw2
+cd ~
+ls
+cd hw2
+./test.sh
+./script.sh
+chmod 777 script.sh
+./script.sh
+./test.sh
+./script.sh
+./parser < ./basic_testcase/input.txt > ans.txt
+golden_parser < ./basic_testcase/input.txt > golden_ans.txt
+./parser < ./basic_testcase/input.txt > ans.txt
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+yacc -v parser.y
+./script.sh
+yacc -v parser.y
+yacc dv parser.y
+yacc -d parser.y
+byacc -d parser.y
+yacc -v parser.y
+byacc -d parser.y
+yacc -v parser.y
+yacc -d parser.y
+clear
+yacc -d parser.y
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./test_expr.sh
+./test.sh
+./script.sh
+./test.sh
+./test_expr.sh
+./script.sh
+./test_expr.sh
+./script.sh
+./test.sh
+git init
+git add -A
+ls -a
+rm -r .git
+cd ..
+git remote add origin https://github.com/YenTinaNTHU/2022-Complier-Homework.git
+git init
+git add -A
+git commit -m "first commit"
+git config --global user.email "tinawang0202@gapp.nthu.edu.tw"
+git config --global user.name "YenTinaNTHU"
+git commit -m "first commit"
+git remote add origin https://github.com/YenTinaNTHU/2022-Complier-Homework.git
+git branch -M main
+git push -u origin main

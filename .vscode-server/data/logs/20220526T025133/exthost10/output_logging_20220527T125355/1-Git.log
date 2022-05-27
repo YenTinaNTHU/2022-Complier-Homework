@@ -1,0 +1,19 @@
+[2022-05-27T04:53:55.706Z] Validating found git in: git
+[2022-05-27T04:53:55.740Z] Using git 2.17.1 from git
+[2022-05-27T04:53:55.801Z] > git rev-parse --git-dir [19ms]
+[2022-05-27T04:53:55.807Z] Open repository: /home/108000208
+[2022-05-27T04:53:55.865Z] > git symbolic-ref --short HEAD [1ms]
+[2022-05-27T04:53:55.872Z] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track) refs/heads/main refs/remotes/main [1ms]
+[2022-05-27T04:53:55.882Z] > git remote --verbose [2ms]
+[2022-05-27T04:53:55.882Z] > git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname) [6ms]
+[2022-05-27T04:53:55.901Z] > git config --get commit.template [1ms]
+[2022-05-27T04:53:56.213Z] > git fetch [400ms]
+[2022-05-27T04:53:56.260Z] > git ls-files --stage -- /home/108000208/hw2/parser.y [5ms]
+[2022-05-27T04:53:56.273Z] > git cat-file -s 3420ae4de0e7551a55cbc36054de3c14f5df09d8 [5ms]
+[2022-05-27T04:53:56.274Z] > git ls-files --stage -- /home/108000208/hw2/ans.txt [15ms]
+[2022-05-27T04:53:56.281Z] > git symbolic-ref --short HEAD [8ms]
+[2022-05-27T04:53:56.286Z] > git cat-file -s 7247a2040c44cf7c5e7dc6f10592d2a81c96fa6f [8ms]
+[2022-05-27T04:53:56.287Z] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track) refs/heads/main refs/remotes/main [2ms]
+[2022-05-27T04:53:56.299Z] > git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname) [8ms]
+[2022-05-27T04:53:56.300Z] > git remote --verbose [2ms]
+[2022-05-27T04:53:56.313Z] > git config --get commit.template [1ms]
