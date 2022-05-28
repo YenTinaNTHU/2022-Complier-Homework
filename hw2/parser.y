@@ -55,7 +55,7 @@ char* add_tag(char* tag, char* str){
 %type<string_v> array_decl arrays array arr_dim arr_content
 %type<string_v> func_decl parameters func_def func
 %type<string_v> expr exprs literal char string variable
-%type<string_v> stmt for_stmt variable_decl compound_stmt stmt_or_decl stmt_or_decls switch_clause switch_clauses
+%type<string_v> stmt for_stmt variable_decl compound_stmt stmt_or_decl stmt_or_decls switch_clause switch_clauses switch_clause_stmt
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
 %token<float_v> FLOAT_NUM POS_FLOAT_NUM NEG_FLOAT_NUM
@@ -819,7 +819,7 @@ stmt
     }
   | compound_stmt
     {
-      $$ = $1;
+      $$ = add_tag("stmt", $1);
     }
 ;
 
@@ -835,20 +835,25 @@ switch_clauses
 ;
 
 switch_clause
-  : CASE expr ':' stmt
+  : CASE expr ':' switch_clause_stmt
     {
       size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
     }
-  | DEFAULT ':' stmt
+  | DEFAULT ':' switch_clause_stmt
     {
       size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
+;
+
+switch_clause_stmt
+  : stmt {$$ = strdup($1);}
+  | {$$ = "";}
 ;
 
 for_stmt

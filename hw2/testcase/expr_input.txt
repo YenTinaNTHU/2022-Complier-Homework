@@ -43,3 +43,8 @@ int a = 0.234;
 int a = 'a';
 int a = '\t';
 int a = "string\n";
+
+// expr_stmt
+int test(){
+    1 + a - b;
+}

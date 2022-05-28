@@ -1,0 +1,107 @@
+// test stmt
+
+// if-else
+int test1(){
+    // if (expr) compound_stmt
+    if(i>=2) {
+        y--;
+    }
+    // if (expr) compound_stmt else compound_stmt
+    if(i||j){
+        k = k + 1;
+    }else{
+        k = j;
+    }
+    // if(e1)if(e2)s1elses2
+    if(a==b) {
+        if(b == 3){
+            i++;
+        }
+    }else{
+        j++;
+    }
+}
+
+// switch
+int test2(){
+    //switch (expr) { switch_clauses }
+    switch(s) {
+        case 'a':
+        case 'b':
+        default: 
+    }
+    // "switch_clauses" consists of 0 or more "switch_clause"
+    // seperated by space / tab / newline / nothing
+    switch(s) {
+        case 'a':
+
+        case 'b': case 'c':
+            case 'd':case 'e':
+        default: 
+    }
+    // "switch_clause" is in the form of
+    // "case expr:" 0 or more "stmt"
+    // "default:" 0 or more "stmt"
+    switch(s) {
+        case 'a':
+            if(a+b){
+                c++;
+            }else{
+                c--;
+            }
+        case 'b':
+            k++;
+        default: 
+           switch(s) {
+        case 'a': {int i = a+b+c+d;}
+        case 'b': {}
+        default: {a+b+d;}
+    } 
+    }
+}
+
+// while, for
+// return, break, continue
+int test3(){
+    // while (expr) stmt
+    while(a!=b){}
+    while (1)
+    {
+        if(i>3){
+            break;
+        }
+    }
+    // do stmt while (expr);
+    do {
+        if(i > 3){
+            break;
+        }
+    } while(1);
+    // for (\[expr\] ; \[expr\] ; \[expr\]) stmt
+    for(i=0;i<n;i++) {a--;}
+    for(;i<n;i++) {a--;}
+    for(i=0;;i++) {a--;}
+    for(i=0;i<n;) {a--;}
+    for(i=0;;) {a--;}
+    for(;i<n;) {a--;}
+    for(i=0;i<n;i++) {a--;}
+    for(;i<n;) {a--;}
+    for(;;) {
+        int a, b, c;
+        int a = 123;
+        int *a = &b;
+        int a=0, b=1, c=2;
+        int a = 123, b = 0, c="456\n";
+        char a = '1', b = '\0', *c = "456";
+        for(i=0;i<n;i++) {a--;}
+        for(;i<n;i++) {a--;}
+        for(i=0;;i++) {a--;}
+        for(i=0;i<n;) {a--;}
+        for(i=0;;) {a--;}
+        for(;i<n;) {a--;}
+        for(i=0;i<n;i++) {a--;}
+        for(;i<n;) {a--;}
+    }
+
+    return a + b - c;
+}
