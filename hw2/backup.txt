@@ -120,3 +120,7 @@ idents
 
     | '*' ID { char *str = strdup($1); strcat(str, $2); $$ = str; }
 ;
+
+int a = 1 + 1 + *(&(a)) + &(b[40]);
+char *c = NULL;
+int foo(char *a , int b) {}

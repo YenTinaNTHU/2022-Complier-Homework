@@ -43,12 +43,11 @@ char* add_tag(char* tag, char* str){
   char* string_v;  
 }
 
-%type<string_v> program
-%type<string_v> global_variable_decls
+%type<string_v> program program_ingredient program_ingredients
+%type<string_v> global_variable_decl
 %type<string_v> scalar_decl type ident idents int_type char_type other_type
 %type<string_v> array_decl arrays array arr_dim arr_content exprs
-%type<string_v> func_decl parameters func_def
-%type<string_v> statement statements compound_stmt
+%type<string_v> func_decl parameters func_def func
 %type<string_v> expr literal char string variable
 
 
@@ -82,39 +81,84 @@ char* add_tag(char* tag, char* str){
 
 
 %% 
-program: statements
-
-statements
-  : statement statements
-  | statement
+program
+  : program_ingredients
+    {
+      printf("%s", $1);
+    }
 ;
 
-statement: global_variable_decls ;
+program_ingredients
+  : program_ingredients program_ingredient
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = str;
+    }
+  | program_ingredient
+    {
+      size_t n = strlen($1);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1);
+      $$ = str;
+    }
+;
 
-global_variable_decls
-  : scalar_decl ';'
+program_ingredient
+  : global_variable_decl
+  | func_decl
     {
-      printf("<scalar_decl>");
-      printf("%s;",$1);
-      printf("</scalar_decl>");
-    }
-  | array_decl ';'
-    {
-      printf("<array_decl>");
-      printf("%s;", $1);
-      printf("</array_decl>");
-    }
-  | func_decl ';'
-    {
-      printf("<func_decl>");
-      printf("%s;", $1);
-      printf("</func_decl>");
+      char* tag_str = add_tag("func_decl", $1);
+      $$ = tag_str;
     }
   | func_def
     {
-      printf("<func_def>");
-      printf("%s;", $1);
-      printf("</func_def>");
+      char* tag_str = add_tag("func_def", $1);
+      $$ = tag_str;
+    }
+;
+
+global_variable_decl
+  : scalar_decl
+    {
+      char* tag_str = add_tag("scalar_decl", $1);
+      $$ = tag_str;
+    }
+  | array_decl
+    {
+      char* tag_str = add_tag("array_decl", $1);
+      $$ = tag_str;
+    }
+;
+
+func_decl
+  : func ';'
+    {
+      size_t n = strlen($1) + strlen($2);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = str;
+    }
+;
+
+func_def
+  :  func '{' '}'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+;
+
+func
+  : type ident '(' parameters ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4)  + strlen($5);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
+      $$ = str;
     }
 ;
 
@@ -529,14 +573,14 @@ exprs
 ;
 
 scalar_decl
-  : type idents
+  : type idents ';'
     {
       size_t n = strlen($1) + strlen($2);
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
-  | type '*' idents
+  | type '*' idents ';'
     {
       size_t n = strlen($1) + strlen($2) + strlen($3);
       char *str = (char*) malloc(n*sizeof(char));
@@ -562,7 +606,7 @@ idents
 ;
 
 array_decl
-  : type arrays
+  : type arrays ';'
     {
       size_t n = strlen($1) + strlen($2);
       char *str = (char*) malloc(n*sizeof(char));
@@ -643,16 +687,6 @@ arr_content
     }
 ;
 
-func_decl
-  : type ident '(' parameters ')'
-    {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4)  + strlen($5);
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
-      $$ = str;
-    }
-;
-
 parameters
   : type ident
     {
@@ -661,28 +695,21 @@ parameters
       strcat(str, $1); strcat(str, $2);;
       $$ = str;
     }
-  | type ident ',' parameters
+  | type '*' ident
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      size_t n = strlen($1) + strlen($2) + strlen($3);
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+  | parameters ',' parameters
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3);
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | {$$ = "";}
-;
-
-func_def
-  : func_decl compound_stmt
-    {
-      size_t n = strlen($1) + strlen($2);
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1); strcat(str, $2);;
-      $$ = str;
-    }
-;
-
-compound_stmt : '{' '}'
-  { $$ = "{compound_stmt}";}
 ;
 
 %%

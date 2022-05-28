@@ -1,3 +1,4 @@
+<scalar_decl>inta;</scalar_decl>
 <scalar_decl>inta=
     <expr>
         <expr>
@@ -7,7 +8,11 @@
             </expr>+
             <expr>*
                 <expr>(
-                    <expr>a</expr>)
+                    <expr>&
+                        <expr>(
+                            <expr>a</expr>)
+                        </expr>
+                    </expr>)
                 </expr>
             </expr>
         </expr>+
@@ -23,3 +28,5 @@
 <scalar_decl>char*c=
     <expr>0</expr>;
 </scalar_decl>
+<func_decl>intfoo(char*a,intb);</func_decl>
+<func_def>intfoo(char*a,intb){}</func_def>
