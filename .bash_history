@@ -573,3 +573,6 @@ git commit -m "delete files"
 git push
 make
 ./scanner
+parser
+./parser
+./scanner

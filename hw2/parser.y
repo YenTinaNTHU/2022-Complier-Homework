@@ -62,7 +62,7 @@ char* add_tag(char* tag, char* str){
 %token<string_v> ID
 %token<string_v> '=' '+' '-' '*' '/' '%' '<' '>' '!' '~' '&' '|' '^' INC DEC LEQ GEQ EQL NEQ LAND LOR
 %token<string_v> ':' ';' ',' '.' '[' ']' '(' ')' '{' '}'
-%token<string_v> CONST SIGNED UNSIGNED SHORT LONG LONGLONG INT CHAR DOUBLE VOID FLOAT STRUCT RETURN LSHIFT RSHIFT STR NUL
+%token<string_v> CONST SIGNED UNSIGNED SHORT LONG LONGLONG INT CHAR CHAR4 CHAR8 DOUBLE VOID FLOAT STRUCT RETURN LSHIFT RSHIFT STR NUL
 %token<string_v> FOR DO WHILE BREAK CONTINUE
 %token<string_v> IF ELSE SWITCH CASE DEFAULT
 %token<string_v> CHAR_START CHAR_END ESCAPE_START ESCAPE_CHAR STRING_START STRING_END
@@ -85,7 +85,6 @@ char* add_tag(char* tag, char* str){
 %left INC DEC '(' ')'
 %right ESCAPE_START
 %nonassoc UMINUS UPLUS DEREF ADDR
-
 
 %% 
 program
@@ -215,26 +214,38 @@ char_type
   | CONST SIGNED LONG { $$ = "constsignedlong"; }
   | CONST SIGNED SHORT { $$ = "constsignedshort"; }
   | CONST SIGNED CHAR { $$ = "constsignedchar"; }
+  | CONST SIGNED CHAR4 { $$ = "constsignedchar4"; }
+  | CONST SIGNED CHAR8 { $$ = "constsignedchar8"; }
   | CONST UNSIGNED LONGLONG { $$ = "constunsignedlonglong"; }
   | CONST UNSIGNED LONG { $$ = "constunsignedlong"; }
   | CONST UNSIGNED SHORT { $$ = "constunsignedshort"; }
   | CONST UNSIGNED CHAR { $$ = "constunsignedchar"; }
+  | CONST UNSIGNED CHAR4 { $$ = "constunsignedchar4"; }
+  | CONST UNSIGNED CHAR8 { $$ = "constunsignedchar8"; }
   | CONST LONGLONG { $$ = "constlonglong"; }
   | CONST LONG { $$ = "constlong"; }
   | CONST SHORT { $$ = "constshort"; }
   | CONST CHAR { $$ = "constchar"; }
+  | CONST CHAR4 { $$ = "constchar4"; }
+  | CONST CHAR8 { $$ = "constchar8"; }
   | SIGNED LONGLONG { $$ = "signedlonglong"; }
   | SIGNED LONG { $$ = "signedlong"; }
   | SIGNED SHORT { $$ = "signedshort"; }
   | SIGNED CHAR { $$ = "signedchar"; }
+  | SIGNED CHAR4 { $$ = "signedchar4"; }
+  | SIGNED CHAR8 { $$ = "signedchar8"; }
   | UNSIGNED LONGLONG { $$ = "unsignedlonglong"; }
   | UNSIGNED LONG { $$ = "unsignedlong"; }
   | UNSIGNED SHORT { $$ = "unsignedshort"; }
   | UNSIGNED CHAR { $$ = "unsignedchar"; }
+  | UNSIGNED CHAR4 { $$ = "unsignedchar4"; }
+  | UNSIGNED CHAR8 { $$ = "unsignedchar8"; }
   | LONGLONG { $$ = "longlong"; }
   | LONG { $$ = "long"; }
   | SHORT { $$ = "short"; }
   | CHAR { $$ = "char"; }
+  | CHAR4 { $$ = "char4"; }
+  | CHAR8 { $$ = "char8"; }
 ;
 
 other_type
@@ -539,10 +550,9 @@ literal
 ;
 
 char
-  : CHAR
-    {
-      $$ = strdup($1);
-    }
+  : CHAR { $$ = strdup($1); }
+  | CHAR4 { $$ = strdup($1); }
+  | CHAR8 { $$ = strdup($1); }
   | ESCAPE_START ESCAPE_CHAR
     {
       size_t n = strlen($1) + strlen($2) + 1;

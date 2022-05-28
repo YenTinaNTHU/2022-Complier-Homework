@@ -130,6 +130,8 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 "double" { yylval.string_v = strdup(yytext); return DOUBLE;}
 "float" { yylval.string_v = strdup(yytext); return FLOAT;}
 "char" { yylval.string_v = strdup(yytext); return CHAR;}
+"char4" { yylval.string_v = strdup(yytext); return CHAR4;}
+"char8" { yylval.string_v = strdup(yytext); return CHAR8;}
 "const" { yylval.string_v = strdup(yytext); return CONST;}
 "signed" { yylval.string_v = strdup(yytext); return SIGNED;}
 "unsigned" { yylval.string_v = strdup(yytext); return UNSIGNED;}
