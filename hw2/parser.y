@@ -25,7 +25,7 @@ char* ftoa(double x) {
 }
 
 char* add_tag(char* tag, char* str){
-  size_t n = strlen(tag) * 2 + strlen(str) + 5;
+  size_t n = strlen(tag) * 2 + strlen(str) + 5 + 1;
   char *tag_str = (char*) malloc(n*sizeof(char));
   strcat(tag_str, "<"); strcat(tag_str, tag); strcat(tag_str, ">");
   strcat(tag_str, str);
@@ -45,11 +45,11 @@ char* add_tag(char* tag, char* str){
 
 %type<string_v> program program_ingredient program_ingredients
 %type<string_v> global_variable_decl
-%type<string_v> scalar_decl type ident idents int_type char_type other_type
+%type<string_v> scalar_decl type ident idents init_ident int_type char_type other_type
 %type<string_v> array_decl arrays array arr_dim arr_content exprs
 %type<string_v> func_decl parameters func_def func
 %type<string_v> expr literal char string variable
-
+%type<string_v> stmt for_stmt variable_decl compound_stmt stmt_or_decl stmt_or_decls switch_clause switch_clauses
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
 %token<float_v> FLOAT_NUM POS_FLOAT_NUM NEG_FLOAT_NUM
@@ -98,15 +98,15 @@ program_ingredients
     }
   | program_ingredient
     {
-      size_t n = strlen($1);
-      char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1);
-      $$ = str;
+      $$ = $1;
     }
 ;
 
 program_ingredient
   : global_variable_decl
+    {
+      $$ = $1;
+    }
   | func_decl
     {
       char* tag_str = add_tag("func_decl", $1);
@@ -124,6 +124,7 @@ global_variable_decl
     {
       char* tag_str = add_tag("scalar_decl", $1);
       $$ = tag_str;
+      // printf("\n\n%s\n\n", $$);
     }
   | array_decl
     {
@@ -135,7 +136,7 @@ global_variable_decl
 func_decl
   : func ';'
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
@@ -143,11 +144,11 @@ func_decl
 ;
 
 func_def
-  :  func '{' '}'
+  :  func '{' stmt '}'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
     }
 ;
@@ -155,7 +156,7 @@ func_def
 func
   : type ident '(' parameters ')'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4)  + strlen($5);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4)  + strlen($5) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
       $$ = str;
@@ -240,220 +241,228 @@ ident
   : ID { $$ = $1;}
 ;
 
+init_ident
+  : ID '=' exprs {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+;
 expr
 	: expr '+' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
 	| expr '-' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
 	| expr '*' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
 	| expr '/' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
 	| expr '%' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr INC
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | expr DEC
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | INC expr
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | DEC expr
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | expr '<' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr LEQ expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr '>' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr GEQ expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr EQL expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr NEQ expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr '=' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr LAND expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr LOR expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | '!' expr
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | '~' expr
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | expr '^' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr '&' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr '|' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr LSHIFT expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | expr RSHIFT expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | '[' expr ']'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | '(' expr ')'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = add_tag("expr", str);
     }
   | '-' expr %prec UMINUS
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | '+' expr %prec UPLUS
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | '*' expr %prec DEREF
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
     }
   | '&' expr %prec ADDR
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = add_tag("expr", str);
@@ -500,14 +509,14 @@ literal
     }
   | CHAR_START char CHAR_END
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | STRING_START string STRING_END
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
@@ -521,7 +530,7 @@ char
     }
   | ESCAPE_START ESCAPE_CHAR
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
@@ -536,7 +545,7 @@ string
     }
   | STR ESCAPE_START ESCAPE_CHAR STR
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
@@ -551,7 +560,7 @@ variable
     }
   | ident arr_dim
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
@@ -563,9 +572,9 @@ exprs
     {
       $$ = strdup($1);
     }
-  | expr ',' exprs
+  | exprs ',' expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
@@ -575,14 +584,14 @@ exprs
 scalar_decl
   : type idents ';'
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
-      strcat(str, $1); strcat(str, $2);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | type '*' idents ';'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
@@ -590,25 +599,26 @@ scalar_decl
 ;
 
 idents
-  : ident ',' idents {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+  : idents ',' ident {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
-    }
-  | ident '=' expr {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+  }
+  | idents ',' init_ident {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
-    }
-  | ident { $$ = $1;}
+  }
+  | ident { $$ = strdup($1);}
+  | init_ident { $$ = strdup($1);}
 ;
 
 array_decl
   : type arrays ';'
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
@@ -618,7 +628,7 @@ array_decl
 arrays
   : array ',' arrays
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
@@ -632,14 +642,14 @@ arrays
 array
   : ident arr_dim
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
   | ident arr_dim '=' arr_content
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
@@ -649,14 +659,14 @@ array
 arr_dim
   : '[' expr ']'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | arr_dim '[' expr ']'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
       $$ = str;
@@ -666,21 +676,21 @@ arr_dim
 arr_content
   : '{' exprs '}'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | '{' arr_content '}'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | arr_content ',' arr_content
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
@@ -690,26 +700,228 @@ arr_content
 parameters
   : type ident
     {
-      size_t n = strlen($1) + strlen($2);
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2);;
       $$ = str;
     }
   | type '*' ident
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | parameters ',' parameters
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3);
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char));
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | {$$ = "";}
+;
+
+
+stmt
+  : expr ';'
+    {
+      size_t n = strlen($1) + strlen($2) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = add_tag("stmt", str);
+    }
+  | IF '(' expr ')' compound_stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
+      $$ = add_tag("stmt", str);
+    }
+  | IF '(' expr ')' compound_stmt ELSE compound_stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = add_tag("stmt", str);
+    }
+  | SWITCH '(' expr ')' '{' switch_clauses '}'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = add_tag("stmt", str);
+    }
+  | WHILE '(' expr ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
+      $$ = add_tag("stmt", str);
+    }
+  | DO stmt WHILE '(' expr ')' ';'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = add_tag("stmt", str);
+    }
+  | for_stmt
+    {
+      $$ = add_tag("stmt", $1);
+    }
+  | RETURN expr ';'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("stmt", str);
+    }
+  | RETURN ';'
+    {
+      $$ = add_tag("stmt", "return;");
+    }
+  | BREAK ';'
+    {
+      $$ = add_tag("stmt", "break;");
+    }
+  | CONTINUE ';'
+    {
+      $$ = add_tag("stmt", "continue;");
+    }
+  | compound_stmt
+    {
+      $$ = $1;
+    }
+;
+
+switch_clauses
+  : switch_clause switch_clauses
+    {
+      size_t n = strlen($1) + strlen($2) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = str;
+    }
+  | { $$ = ""; }
+;
+
+switch_clause
+  : CASE expr ':' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      $$ = str;
+    }
+  | DEFAULT ':' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+;
+
+for_stmt
+  : FOR '(' exprs ';' exprs ';' exprs ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + strlen($8) + strlen($9) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7); strcat(str, $8); strcat(str, $9);
+      $$ = str;
+    }
+  | FOR '(' exprs ';' exprs ';' ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + strlen($8) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7); strcat(str, $8);
+      $$ = str;
+    }
+  | FOR '(' exprs ';'  ';' exprs ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + strlen($8) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7); strcat(str, $8);
+      $$ = str;
+    }
+  | FOR '(' ';' exprs ';' exprs ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + strlen($8) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7); strcat(str, $8);
+      $$ = str;
+    }
+  | FOR '(' ';'  ';' exprs ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = str;
+    }
+  | FOR '(' ';' exprs ';' ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = str;
+    }
+  | FOR '(' exprs ';' ';' ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + strlen($7) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6); strcat(str, $7);
+      $$ = str;
+    }
+  | FOR '(' ';' ';' ')' stmt
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6);
+      $$ = str;
+    }
+;
+
+compound_stmt
+  : '{' '}' { $$ = "{}"; }
+  | '{' stmt_or_decls '}'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = str;
+    }
+;
+
+stmt_or_decls
+  : stmt_or_decl stmt_or_decls
+    {
+      {
+      size_t n = strlen($1) + strlen($2) + 1;
+      char *str = (char*) malloc(n*sizeof(char));
+      strcat(str, $1); strcat(str, $2);
+      $$ = str;
+    }
+    }
+  | stmt_or_decl { $$ = $1; }
+;
+
+stmt_or_decl
+  : stmt { $$ = $1; }
+  | variable_decl { $$ = $1; }
+;
+
+variable_decl
+  : scalar_decl
+    {
+      char* tag_str = add_tag("scalar_decl", $1);
+      $$ = tag_str;
+    }
+  | array_decl
+    {
+      char* tag_str = add_tag("array_decl", $1);
+      $$ = tag_str;
+    }
 ;
 
 %%
