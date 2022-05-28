@@ -52,9 +52,9 @@ char* add_tag(char* tag, char* str){
 %type<string_v> program program_ingredient program_ingredients
 %type<string_v> global_variable_decl
 %type<string_v> scalar_decl type ident idents int_type char_type other_type
-%type<string_v> array_decl arrays array arr_dim arr_content exprs
+%type<string_v> array_decl arrays array arr_dim arr_content
 %type<string_v> func_decl parameters func_def func
-%type<string_v> expr literal char string variable
+%type<string_v> expr exprs literal char string variable
 %type<string_v> stmt for_stmt variable_decl compound_stmt stmt_or_decl stmt_or_decls switch_clause switch_clauses
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
@@ -81,7 +81,8 @@ char* add_tag(char* tag, char* str){
 %left LSHIFT RSHIFT
 %left '+' '-'
 %left '*' '/' '%'
-%right INC DEC '!' '~'
+%right '!' '~'
+%left INC DEC '(' ')'
 %right ESCAPE_START
 %nonassoc UMINUS UPLUS DEREF ADDR
 
@@ -437,6 +438,20 @@ expr
       size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
+  | '(' type ')' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      $$ = add_tag("expr", str);
+    }
+  | '(' type '*' ')' expr
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
       $$ = add_tag("expr", str);
     }
   | '-' expr %prec UMINUS

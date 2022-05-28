@@ -1,1 +1,45 @@
-(1 >> 1) * 4 >> 5 | 1 || 5
+// test expr
+// only correct if operators of seperate by space (limitted by scanner)
+// + - * / % ++ -- < <= > >= == != = && || ! ~ ^ & | >> << [ ] ( )
+int i = (a+b);
+int i = (a-b);
+int i = (a*b);
+int i = (a/b);
+int i = (a%b);
+int i = +1, b = -1;
+int i = (-1) + +1;
+int i = 1 - 1 - 1 - 1;
+int i = b++; int i = ++b;
+int i = --c; int d = d--;
+int i = a<b <= c>d >= e;
+int i = a == b != c;
+int a = b = c = d^2;
+int a =  !(~b && c || d);
+int a = b & c | d >> 2 << 5;
+int a = ((a));
+int i = (1 >> 1) * 4 >> 5 | 1 || 5;
+
+// function invocation '(params...)'
+void test(int a, int b){
+    // (post / pre-fix) ("++" / "--")
+    i++; i--; ++i; --i;
+    // unary ('+' / '-')
+    int u = +1, U = -1;
+    // array subscription, dereference ('*'), address-of ('&')
+    int *a = b[4][2]; c = &a;
+    // type-casting ( "(type)" including single-level pointer types )
+    int a = (int) x = 23;
+    int a = (int*) y = 45;
+}
+
+// "variable": "ident" or "ident[expr]\[[expr]...\]"
+int a = a;
+int a = a[a+b][c+d];
+// "literal":
+// single signless integer
+int a = 1000000;
+// signless floating-point number / char / string literal
+int a = 0.234;
+int a = 'a';
+int a = '\t';
+int a = "string\n";
