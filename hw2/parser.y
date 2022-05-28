@@ -149,11 +149,11 @@ func_decl
 ;
 
 func_def
-  :  func '{' stmt '}'
+  :  func compound_stmt
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
+      size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
-      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
 ;
@@ -161,9 +161,16 @@ func_def
 func
   : type ident '(' parameters ')'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4)  + strlen($5) + 1;
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5);
+      $$ = str;
+    }
+  | type '*' ident '(' parameters ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4); strcat(str, $5); strcat(str, $6);
       $$ = str;
     }
 ;
@@ -709,6 +716,13 @@ parameters
       size_t n = strlen($1) + strlen($2) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2);;
+      $$ = str;
+    }
+  | type '*' ident
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | parameters ',' parameters
