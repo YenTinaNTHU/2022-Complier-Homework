@@ -565,7 +565,7 @@ exprs
     {
       $$ = strdup($1);
     }
-  | exprs ',' expr
+  | expr ',' exprs
     {
       size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
@@ -624,9 +624,9 @@ ident
 array_decl
   : type arrays ';'
     {
-      size_t n = strlen($1) + strlen($2) + 1;
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
-      strcat(str, $1); strcat(str, $2);
+      strcat(str, $1); strcat(str, $2);  strcat(str, $3);
       $$ = str;
     }  
 ;
@@ -653,11 +653,11 @@ array
       strcat(str, $1); strcat(str, $2);
       $$ = str;
     }
-  | ident arr_dim '=' arr_content
+  | ident arr_dim '=' '{' arr_content '}'
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + strlen($5) + strlen($6) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
-      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);  strcat(str, $5); strcat(str, $6);
       $$ = str;
     }
 ;
@@ -680,11 +680,11 @@ arr_dim
 ;
 
 arr_content
-  : '{' exprs '}'
+  : expr
     {
-      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      size_t n = strlen($1) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
-      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      strcat(str, $1);
       $$ = str;
     }
   | '{' arr_content '}'
