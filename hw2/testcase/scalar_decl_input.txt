@@ -5,3 +5,19 @@ int *a = &b;
 int a=0, b=1, c=2;
 int a = 123, b = 0, c="456\n";
 char a = '1', b = '\0', *c = "456";
+
+// escape char
+char a = 'c';
+char b = '\n';
+char c = '\\';
+char d = '\'';
+char e = '\?';
+char f = '\321';
+char g = '\2';
+char h = '\12';
+char i = "simple string";
+char j = " escaped \t \t string\n";
+// char j = " escaped \" string";
+char k = "escaped char '\\n'\' \\";
+char k = "escape char\\\'\\n\'\'";
+char l = "complex escape \123 \32 \443 \\";

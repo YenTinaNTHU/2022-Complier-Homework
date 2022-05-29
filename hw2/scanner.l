@@ -36,15 +36,19 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     BEGIN STRING;
     return STRING_START;
 }
+<STRING>\\ {
+    yylval.string_v = strdup(yytext);
+    BEGIN STRING_ESCAPE;
+    return ESCAPE_START;
+}
 <STRING>\" {
     yylval.string_v = strdup(yytext);
     BEGIN 0;
     return STRING_END;
 }
-<STRING>\\ {
+<STRING>\\\" {
     yylval.string_v = strdup(yytext);
-    return ESCAPE_START;
-    BEGIN STRING_ESCAPE;
+    return STR;
 }
 <STRING>\n ;
 <STRING>[^\"]* {
@@ -56,6 +60,7 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     return ESCAPE_CHAR;
     BEGIN STRING;
 }
+
 
 \' {
     yylval.string_v = strdup(yytext);
@@ -77,7 +82,7 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     yylval.string_v = strdup(yytext);
     return CHAR;
 }
-<CHARACTOR_ESCAPE>. {
+<CHARACTOR_ESCAPE>.|[^\']* {
     yylval.string_v = strdup(yytext);
     BEGIN CHARACTOR;
     return ESCAPE_CHAR;

@@ -576,3 +576,453 @@ make
 parser
 ./parser
 ./scanner
+git add -A
+git commit -m "first commit"
+git push
+git remote add origin https://github.com/YenTinaNTHU/2022-Complier-Homework.git
+git push -u origin main
+clear
+./script.sh
+./test.sh
+./test_expr.sh
+yacc -d expr.y
+yacc -v expr.y
+gcc -o expr_parser lex.yy.c y.tab.c -lfl
+./expr_parser < ./basic_testcase/expr_input.txt > ans.txt
+./test_expr.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+git add -A
+git commit -m "expr literal"
+git push
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./test_expr.sh
+./script.sh
+./test.sh
+./test_expr.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+git add -A
+git commit -m "expr"
+git push
+git add -A
+git commit -m "test"
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+git add -A
+git commit -m "fix expr"
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+golden_parser < ./basic_testcase/input.txt > golden_ans.txt
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+git add -A
+git commit -m "restructure decls"
+git push
+./script.sh
+git push
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+cd ../..
+ls
+cd testcase
+ls
+cd hw2_bonus/
+ls
+cp basic_testcase/input.txt ../../108000208/hw2
+cd ~/hw2
+ls
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+diff golden_ans.txt ans.txt
+clear
+diff golden_ans.txt ans.txt
+clear
+./test.sh
+diff golden_ans.txt ans.txt
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+diff golden_ans.txt ans.txt
+./test.sh
+diff golden_ans.txt ans.txt
+./test.sh
+diff golden_ans.txt ans.txt
+./test.sh
+diff golden_ans.txt ans.txt
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+./script.sh
+./test.sh
+git add -A
+git commit -m "basic test case"
+git push
+./test.sh
+make
+git rm expr_parser
+git rm --cache backup.txt
+git rm --cache lex.yy.c
+git rm --cache parser
+git rm --cache test.sh
+git rm --cache y.output
+git rm --cache y.tab.c
+git rm --cache y.tab.h
+git add -A
+git commit -m "restructure project"
+git push
+make
+./test.sh
+git push
+./test.sh
+make
+./test.sh
+maake
+make
+./test.sh
+clear
+./test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+make
+./test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+nake
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+git add -A
+git commit -m "test ident and type"
+git push
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./script.sh
+make
+./test.sh
+make
+./test.sh
+git add -A
+git commit -m "test arr_decl"
+git push
+./test.sh
+git push
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+git add -A
+git commit -m "test func_decl func_def"
+git push
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./script.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+clear
+git add -A
+git commit -m "test expr"
+git push
+clear
+./test.sh
+clear
+make
+./test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+make
+./test.sh
+git add -A
+git commit -m "test stmt"
+git push
+./test.sh
+git add -A
+git commit -m "test stmt"
+make
+cd ../testcase/hw2_bonus/input.txt .
+cp ../testcase/hw2_bonus/input.txt .
+..
+cd ..
+ls
+cp ../../testcase/hw2_bonus/input.txt .
+cd ../../testcase/hw2_bonus/inp
+cd hw2
+cp ../../testcase/hw2_bonus/input.txt .
+cd ..
+ls
+cp testcase/hw2_bonus/basic_testcase/input.txt 108000208/hw2
+cd ~/hw2
+make
+./test.sh
+git add -A
+git commit -m "bonus"
+git push
+./test.sh
+make
+./test.sh
+chmod 777 test.sh
+./test.sh
+golden_scanner < ./scoring_testcase/int_float_char.txt > golden_ans.txt
+./scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+diff golden_ans.txt ans.txt
+./script.sh
+chmod 777 script.sh
+./script.sh
+make
+golden_scanner < ./scoring_testcase/int_float_char.txt > golden_ans.txt
+./scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+diff golden_ans.txt ans.txt
+golden_scanner < ./scoring_testcase/string.txt > golden_ans.txt
+./scanner < ./scoring_testcase/string.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+golden_scanner < ./scoring_testcase/string.txt > golden_ans.txt
+./scanner < ./scoring_testcase/string.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+./scanner < ./scoring_testcase/string.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+./scanner < ./scoring_testcase/string.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+./scanner < ./scoring_testcase/string.txt > ans.txt
+make
+./scanner < ./scoring_testcase/string.txt > ans.txt
+make
+./scanner < ./scoring_testcase/string.txt > ans.txt
+diff golden_ans.txt ans.txt
+./scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+./scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+diff golden_ans.txt ans.txt
+golded_scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+golden_scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+golden_scanner < ./scoring_testcase/int_float_char.txt > golden_ans.txt
+./scanner < ./scoring_testcase/int_float_char.txt > ans.txt
+diff golden_ans.txt ans.txt
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh

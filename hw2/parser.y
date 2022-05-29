@@ -83,7 +83,7 @@ char* add_tag(char* tag, char* str){
 %left '*' '/' '%'
 %right '!' '~'
 %left INC DEC '(' ')'
-%right ESCAPE_START
+%right ESCAPE_START STR
 %nonassoc UMINUS UPLUS DEREF ADDR
 
 %% 
@@ -564,15 +564,22 @@ char
 ;
 
 string
-  : STR
+  : STR string
     {
       $$ = strdup($1);
     }
-  | STR ESCAPE_START ESCAPE_CHAR STR
+  | string ESCAPE_START ESCAPE_CHAR STR
     {
       size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
       char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
       strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      $$ = str;
+    }
+  | string ESCAPE_START ESCAPE_CHAR
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
       $$ = str;
     }
   | { $$ = ""; }
