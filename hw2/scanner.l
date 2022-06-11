@@ -36,6 +36,10 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     BEGIN STRING;
     return STRING_START;
 }
+<STRING>\\\" {
+    yylval.string_v = strdup(yytext);
+    return STR;
+}
 <STRING>\\ {
     yylval.string_v = strdup(yytext);
     BEGIN STRING_ESCAPE;
@@ -45,10 +49,6 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
     yylval.string_v = strdup(yytext);
     BEGIN 0;
     return STRING_END;
-}
-<STRING>\\\" {
-    yylval.string_v = strdup(yytext);
-    return STR;
 }
 <STRING>\n ;
 <STRING>[^\"]* {

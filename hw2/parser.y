@@ -496,6 +496,20 @@ expr
 	| literal { $$ = add_tag("expr", $1); }
   | variable { $$ = add_tag("expr", $1); }
   | NUL {$$ = add_tag("expr", "0");}
+  | expr '(' exprs ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + strlen($4) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3); strcat(str, $4);
+      $$ = add_tag("expr", str);
+    }
+  | expr '(' ')'
+    {
+      size_t n = strlen($1) + strlen($2) + strlen($3) + 1;
+      char *str = (char*) malloc(n*sizeof(char)); str = init_str(str);
+      strcat(str, $1); strcat(str, $2); strcat(str, $3);
+      $$ = add_tag("expr", str);
+    }
 ;
 
 literal

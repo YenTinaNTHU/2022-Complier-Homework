@@ -1026,3 +1026,73 @@ make
 ./test.sh
 make
 ./test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+./test.sh
+make
+./script.sh
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+./test.sh
+make
+make clean
+./test.sh
+make clean
+./test.sh
+./script.sh
+./test.sh
+make clean
+./test.sh
+git add -A
+git commit -m "cannot deal with string escape char"
+git push
+./script.sh
+git push
+./test.sh
+cd hw2
+cd ../..
+ls
+cd testcase
+ls
+cd hw2
+ls
+cp -r scoring_testcase/ ../../108000208/hw2
+cd ~/hw2
+ls
+cd scoring_testcase/
+./scoring_test.sh
+chmod 777 scoring_test.sh
+./scoring_test.sh
+make clean
+cd ..
+./scoring_test.sh
+cd ../..
+ls
+cd testcase
+ls
+cd hw2_bonus/
+ls
+cd basic_testcase
+ls
+cd ../../../108000208/hw2
+ks
+ls
+cd ..
+mkdir
+mkdir hw3
+cd hw2
+ls
+./scoring_test.sh
+diff ./answer/golden_ans.txt ./answer/ans.txt
+./scoring_test.sh
