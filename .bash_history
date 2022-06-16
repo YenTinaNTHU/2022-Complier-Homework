@@ -1096,3 +1096,46 @@ ls
 ./scoring_test.sh
 diff ./answer/golden_ans.txt ./answer/ans.txt
 ./scoring_test.sh
+git add -A
+git commit -m "hw2 finish"
+git push
+cd hw3
+ls
+ls -a
+cd ..
+ls
+cd hw3
+cd ~
+ls
+cd ..
+ls
+cd 108000208
+cd hw3
+mkdir spike
+cd spike
+apt-get install device-tree-compiler
+cd spike
+apt-get install device-tree-compiler
+mkdir spike
+cd spike
+cd ..
+cd ~
+ls
+cd hw3
+apt-get install device-tree-compiler
+yum install dtc
+spike
+cd assembly
+riscv64-unknown-elf-gcc -o sample_prog main.c codegen.S
+spike pk sample_prog
+spike -d pk sample_prog
+cd ../..
+ls
+cp hw2/scanner.l hw3
+cp hw2/Makefile hw3
+cp test.sh hw3
+cp hw2/test.sh hw3
+cd ../hw3
+cd hw3
+touch parser.y
+clear
