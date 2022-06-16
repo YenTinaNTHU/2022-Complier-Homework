@@ -113,11 +113,13 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 }
 
 {integers} {
+    //printf("%s", yytext);
     yylval.int_v = atoi(yytext);
     if(yytext[0] == '+') return POS_INT_NUM;
     else if(yytext[0] == '-') return NEG_INT_NUM;
     else return INT_NUM;
 }
+
 "for" { yylval.string_v = strdup(yytext); return FOR;}
 "do" { yylval.string_v = strdup(yytext); return DO;}
 "while" { yylval.string_v = strdup(yytext); return WHILE;}
@@ -130,7 +132,11 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 "switch" { yylval.string_v = strdup(yytext); return SWITCH;}
 "case" { yylval.string_v = strdup(yytext); return CASE;}
 "default" { yylval.string_v = strdup(yytext); return DEFAULT;}
-"void" { yylval.string_v = strdup(yytext); return VOID;}
+"void" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return VOID;
+}
 "int" { yylval.string_v = strdup(yytext); return INT;}
 "double" { yylval.string_v = strdup(yytext); return DOUBLE;}
 "float" { yylval.string_v = strdup(yytext); return FLOAT;}
@@ -143,12 +149,42 @@ floats [+-]?[0-9]*\.[0-9]+|[+-]?[0-9]+\.[0-9]*
 "short" { yylval.string_v = strdup(yytext); return SHORT;}
 "long" { yylval.string_v = strdup(yytext); return LONG;}
 "long long" { yylval.string_v = strdup(yytext); return LONGLONG;}
-
 "NULL" { yylval.int_v = atoi(yytext); return NUL;}
+
+"codegen" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return CODEGEN;
+}
+
+"digitalWrite" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return DIGITALWRITE;
+}
+
+"delay" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return DELAY;
+}
+
+"HIGH" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return HIGH;
+}
+
+"LOW" {
+    //printf("%s", yytext);
+    yylval.string_v = strdup(yytext);
+    return LOW;
+}
 
 {identifiers} { yylval.string_v = strdup(yytext); return ID; }
 
 {punc_chars} {
+    //printf("%s", yytext);
     yylval.string_v = strdup(yytext); 
     char x = strdup(yytext)[0];
     return x;

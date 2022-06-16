@@ -1,0 +1,6 @@
+enter funciton body:
+call digitalWrite()
+call delay()
+call digitalWrite()
+call delay()
+exit function body

@@ -1,37 +1,12 @@
 make
-file=array_decl_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
+file=testcase/Basic/0.c
+./parser < ./$file > ./ans.txt
 
-file=expr_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
+cp codegen.S ./testcase/Basic/codegen.S
+cd ./testcase/Basic/
 
-file=func_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
+riscv64-unknown-elf-gcc -o basic main.c codegen.S
+spike pk basic
 
-file=scalar_decl_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
-
-file=stmt_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
-
-file=type_input.txt
-golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-./parser < ./testcase/$file > ./answer/ans.txt
-diff ./answer/golden_ans.txt ./answer/ans.txt
-
-#file=bonus_input.txt
-#golden_parser < ./testcase/$file > ./answer/golden_ans.txt
-#./parser < ./testcase/$file > ./answer/ans.txt
-#diff ./answer/golden_ans.txt ./answer/ans.txt
-
+cd ../..
 make clean
