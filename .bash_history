@@ -1139,3 +1139,58 @@ cd ../hw3
 cd hw3
 touch parser.y
 clear
+cd ../..
+ls
+cd testcase
+;s
+ls
+cd hw3
+;s
+ls
+cd ..
+ls
+cp -r hw3 ../108000208/hw3
+cd ~/hw3
+git add -A
+git commit -m "init hw3"
+git push
+./scanner_test.sh
+chmod 777 scanner_test.sh
+./scanner_test.sh
+./parser_test.sh
+chmod -x parser_test.sh
+./parser_test.sh
+chmod -rwx parser_test.sh
+chmod 777 parser_test.sh
+./parser_test.sh
+yacc -d parser.y
+flex scanner.l
+gcc -o parser lex.yy.c y.tab.c -lfl
+yacc -d parser.y
+flex scanner.l
+gcc -o parser lex.yy.c y.tab.c -lfl
+yacc -d parser.y
+flex scanner.l
+gcc -o parser lex.yy.c y.tab.c -lfl
+./parser_test.sh
+
+cd testcase/Basic
+riscv64-unknown-elf-gcc -o basic main.c codegen.S
+./parser_test.sh
+cd ../..
+./parser_test.sh
+cd testcase/Basic/
+riscv64-unknown-elf-gcc -o basic main.c codegen.S
+riscv64-unknown-elf-gcc -o basic 0.c codegen.S
+riscv64-unknown-elf-gcc -o basic main.c codegen.S
+spike pk basic
+clear
+cd ../..
+sh test.sh
+make clean
+sh test.sh
+make clean
+sh test.sh
+git add -A
+git commit -m "Basic"
+git push
