@@ -292,7 +292,7 @@ expr
       printf("assign variable %s\n", $1);
       /* assign 0(sp) to the address of variable */
       // 1. find variable offset from symbol table
-      int var_idx = look_up_symbol($2);
+      int var_idx = look_up_symbol($1);
       int var_byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
       // 2. pop and load value of expr to t0
       fprintf(codegen, "ld t0, 0(sp)\n");
