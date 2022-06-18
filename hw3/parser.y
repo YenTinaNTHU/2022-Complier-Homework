@@ -22,7 +22,8 @@
 %type<string_v> codegen_decl codegen_def codegen_stmts codegen_stmt
 %type<string_v> digital_write_func delay_func
 %type<string_v> scalar_decl type ident variable
-%type<int_v> expr
+%type<int_v> expr int_num
+%type<string_v> stmt
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
 %token<float_v> FLOAT_NUM POS_FLOAT_NUM NEG_FLOAT_NUM
@@ -57,7 +58,6 @@ program_ingredients
 program_ingredient
   : codegen_decl
   | codegen_def
-  | scalar_decl
 ;
 
 codegen_decl
@@ -85,6 +85,7 @@ codegen_def:
       fprintf(codegen, "sd ra, %d(sp)\n", FRAME_SIZE-8);
       fprintf(codegen, "sd fp, %d(sp)\n", FRAME_SIZE-16);
       fprintf(codegen, "addi fp, sp, %d\n", FRAME_SIZE);
+      fprintf(codegen, "\n");
     }
   codegen_stmts
     {
@@ -94,6 +95,7 @@ codegen_def:
       fprintf(codegen, "ld fp, %d(sp)\n", FRAME_SIZE-16);
       fprintf(codegen, "addi sp, sp, %d\n", FRAME_SIZE);
       fprintf(codegen, "jr ra");
+      fprintf(codegen, "\n");
       pop_up_symbol(cur_scope);
       cur_scope--;
       pop_execute_func();
@@ -110,6 +112,7 @@ codegen_stmt
   : digital_write_func
   | delay_func
   | scalar_decl
+  | stmt
 ;
 
 digital_write_func
@@ -121,6 +124,7 @@ digital_write_func
       fprintf(codegen, "li a0, %d\n", $3);
       fprintf(codegen, "li a1, 1\n");
       fprintf(codegen, "jal ra, digitalWrite\n");
+      fprintf(codegen, "\n");
     }
   | DIGITALWRITE '(' INT_NUM ',' LOW ')' ';'
     {
@@ -130,6 +134,7 @@ digital_write_func
       fprintf(codegen, "li a0, %d\n", $3);
       fprintf(codegen, "li a1, 0\n");
       fprintf(codegen, "jal ra, digitalWrite\n");
+      fprintf(codegen, "\n");
     }
 ;
 
@@ -142,24 +147,48 @@ delay_func
       fprintf(codegen, "ld a0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
       fprintf(codegen, "jal ra, delay\n");
+      fprintf(codegen, "\n");
     }
 ;
 
 scalar_decl
   : type ident '=' expr ';'
     {
-      printf("scalar declaraition\n");
+      printf("declare and assign variable %s\n", $2);
       /* set local variable */
       install_symbol($2);
       set_local_vars($2);
+      set_int_type($2);
       /* store value to the stack */
       int idx = look_up_symbol($2);
       int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      // pop value from stack
       fprintf(codegen, "ld t0, 0(sp)\n");
-      fprintf(codegen, "addi sp, sp, 16\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // write the value to the variable
       fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
-      fprintf(codegen, "addi sp, sp, -8\n");
-      fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
+      // print_symbol_table(5);
+    }
+  | type '*' ident '=' '&' variable ';'
+    {
+      printf("declare and assign pointer %s\n", $3);
+      /* set local variable */
+      install_symbol($3);
+      set_local_vars($3);
+      set_ptr_type($3);
+      /* Write the offset of variable to the ident address on stack. */
+      // get offset from symbol table and count byte offset
+      int var_idx = look_up_symbol($6);
+      int var_byte_offset = (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      int idx = look_up_symbol($3);
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      // store the address of variable to t0
+      fprintf(codegen, "li t0, %d\n", var_byte_offset);
+      // write the variable's byte offset to the address of ident
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "\n");
+      // print_symbol_table(5);
     }
 ;
 
@@ -171,6 +200,7 @@ expr
 	: expr '+' expr
     {
       /* Assume the operants are already in stack */
+      fprintf(codegen, "\n");
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
       fprintf(codegen, "ld t1, 0(sp)\n");
@@ -178,7 +208,7 @@ expr
       fprintf(codegen, "add t0, t1, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
-
+      fprintf(codegen, "\n");
       printf("add %d %d\n", $1, $3);
       $$ = $1 + $3;
     }
@@ -191,6 +221,7 @@ expr
       fprintf(codegen, "sub t0, t1, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
       printf("sub %d %d\n", $1, $3);
       $$ = $1 - $3;
     }
@@ -203,6 +234,7 @@ expr
       fprintf(codegen, "mul t0, t1, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
       printf("mul %d %d\n", $1, $3);
       $$ = $1 * $3;
     }
@@ -215,6 +247,7 @@ expr
       fprintf(codegen, "div t0, t1, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
       printf("div %d %d\n", $1, $3);
       $$ = $1 / $3;
     }
@@ -227,14 +260,17 @@ expr
       fprintf(codegen, "mod t0, t1, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
       printf("mod %d %d\n", $1, $3);
       $$ = $1 % $3;
     }
   | '(' expr ')' {$$ = $2;}
-  | INT_NUM {
+  | int_num {
       fprintf(codegen, "li t0, %d\n", $1);
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
+      printf("Put integer:%d onto stack.\n", $1);
+      fprintf(codegen, "\n");
       $$ = $1;
     }
   | variable 
@@ -243,14 +279,104 @@ expr
       int idx = look_up_symbol($1);
       // Get the offset
       int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      // push the value of variable to stack
       fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
+      printf("Read variable:%s value and push to stack.\n", $1);
+      $$ = 1;
+    }
+  | variable '=' expr
+    {
+      printf("assign variable %s\n", $1);
+      /* assign 0(sp) to the address of variable */
+      // 1. find variable offset from symbol table
+      int var_idx = look_up_symbol($2);
+      int var_byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      // 2. pop and load value of expr to t0
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // 3. stored the value of expr to *variable (address stored in t1)
+      fprintf(codegen, "sd t0, %d(fp)\n", var_byte_offset);
+      $$ = $3;
+    }
+  | '*' variable '=' expr
+    {
+      printf("assign pointer %s\n", $2);
+      /* assign 0(sp) to the value of variable */
+      /* t1: address of variable */
+      /* t0: value of expr */
+      // 1. get the offset of variable from symbol table
+      int var_idx = look_up_symbol($2);
+      int var_byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      // 2. read the value (byte-offset) and put to t1
+      fprintf(codegen, "ld t1, %d(fp)\n", var_byte_offset);
+      fprintf(codegen, "sub t1, fp, t1\n");
+      // 3. pop and load value of expr to t0
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // 4. stored the value of expr to *variable (address stored in t1)
+      fprintf(codegen, "sd t0, 0(t1)\n");
+      fprintf(codegen, "\n");
+      $$ = $4;
+    }
+  | '*' variable %prec DEREF
+    {
+      printf("deference %s\n", $2);
+      /* return the value that point by the variable */
+      /* t1: address of variable */
+      /* t0: value of variable */
+
+      // 1. get the offset of variable from symbol table
+      int var_idx = look_up_symbol($2);
+      int var_byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      // 2. read the value (byte-offset) and put to t1
+      fprintf(codegen, "ld t1, %d(fp)\n", var_byte_offset);
+      fprintf(codegen, "sub t1, fp, t1\n");
+      // 4. load the variable to t0
+      fprintf(codegen, "ld t0, 0(t1)\n");
+      // 5. push the value stored at t0 to the stack
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t0, 0(sp)\n");
+      $$ = 1;
+    }
+  | '&' variable %prec ADDR
+    {
+      printf("%s address\n", $2);
+      // get offset from symbol table and count byte offset
+      int var_idx = look_up_symbol($2);
+      int var_byte_offset = (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      // store the address of variable to t0
+      fprintf(codegen, "li t0, %d\n", var_byte_offset);
+      // push the address to the stack
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t0, 0(sp)\n");
+      fprintf(codegen, "\n");
+      $$ = 1;
+    }
+  | '-' variable %prec UMINUS
+    {
+      printf("minus %s\n", $2);
+      int var_idx = look_up_symbol($2);
+      int var_byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[var_idx].offset) * 8;
+      fprintf(codegen, "ld t0, %d(fp)\n", var_byte_offset);
+      fprintf(codegen, "sub t0, zero, t0\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       $$ = 1;
     }
 ;
 
+int_num
+  : INT_NUM {$$ = $1;}
+  | POS_INT_NUM {$$ = $1;}
+  | NEG_INT_NUM {$$ = $1;}
+;
+
 variable: ident {$$ = $1;};
+
+stmt: expr ';' {$$ = "expr";};
 
 %%
 

@@ -113,6 +113,16 @@ void set_local_vars(char *name){
     table[idx].offset = offset;
 }
 
+void set_int_type(char *name){
+    int idx = look_up_symbol(name);
+    table[idx].type = T_INT;
+}
+
+void set_ptr_type(char *name){
+    int idx = look_up_symbol(name);
+    table[idx].type = T_POINTER;
+}
+
 void set_scope_and_offset_of_param(char *functor){
     int total_args;
     int idx = look_up_symbol(functor);

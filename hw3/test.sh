@@ -1,7 +1,7 @@
 make
-dir=testcase/ArithmeticExpression
-file=$dir/1.c
-./parser < ./$file > ./ans.txt
+dir=testcase/Pointer
+file=1.c
+./parser < ./$dir/$file > ./ans.txt
 
 cp codegen.S ./$dir/codegen.S
 cd ./$dir/

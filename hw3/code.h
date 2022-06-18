@@ -24,6 +24,8 @@ void print_symbol_table(int n);
 
 void set_local_vars(char *name);
 void set_global_vars(char *name);
+void set_int_type(char *name);
+void set_ptr_type(char *name);
 void set_scope_and_offset_of_param(char *functor);
 
 void init_execute_func();
