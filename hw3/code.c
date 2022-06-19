@@ -6,6 +6,8 @@
 int cur_scope = 0;
 int cur_counter = 0;
 int exe_func_counter = 0;
+int if_else_counter = 0;
+int if_else_pointer = 0;
 
 void print_symbol_table(int n){
     printf("name      | scope | mode  | offset| type  | total_args| total_locals\n");
@@ -140,4 +142,25 @@ void set_scope_and_offset_of_param(char *functor){
             j--;
         }
     }
+}
+
+void init_if_else_stack(){
+    if_else_counter = 0;
+    if_else_pointer = 0;
+    bzero(&if_else_stack[0], sizeof(int)*MAX_TABLE_SIZE);
+}
+
+void push_if_else_stack(int num){
+    if(if_else_pointer >= MAX_TABLE_SIZE){
+        printf("if-else stack full\n");
+    }else{
+        if_else_stack[if_else_pointer] = num;
+        if_else_pointer++;
+    }
+}
+
+int pop_if_else_stack(){
+    int val = if_else_stack[if_else_pointer];
+    if_else_pointer--;
+    return val;
 }

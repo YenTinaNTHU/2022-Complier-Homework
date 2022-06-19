@@ -29,6 +29,7 @@
 %type<int_v> expr int_num
 %type<string_v> stmt
 %type<string_v> array_decl
+%type<string_v> compound_stmt if_stmt if_else_stmt
 
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
@@ -45,6 +46,8 @@
 %left ';'
 %left ','
 %right '='
+%left EQL NEQ
+%left '>' '<'
 %left '+' '-'
 %left '*' '/' '%'
 %left '(' ')'
@@ -126,8 +129,38 @@ codegen_stmt
 
 stmt
   : expr ';' {$$ = "expr";}
-  | IF '(' expr ')' compound_stmt
-  | IF '(' expr ')' compound_stmt ELSE compound_stmt
+  | if_stmt
+    {
+      fprintf(codegen, ".L%d0: \n", if_else_stack[if_else_pointer-1]);
+      pop_if_else_stack();
+    }
+  | if_else_stmt
+;
+
+if_stmt
+  : IF '(' expr
+    {
+      if_else_counter++;
+      push_if_else_stack(if_else_counter);
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "beq zero, t0, .L%d0\n", if_else_stack[if_else_pointer-1]);
+    }
+    ')' compound_stmt
+;
+
+if_else_stmt
+  : if_stmt ELSE
+    {
+      fprintf(codegen, "j .L%d1\n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, "\n");
+      fprintf(codegen, ".L%d0:\n", if_else_stack[if_else_pointer-1]);
+    }
+    compound_stmt
+    {
+      fprintf(codegen, ".L%d1:\n", if_else_stack[if_else_pointer-1]);
+      pop_if_else_stack();
+    }
 ;
 
 digital_write_func
@@ -305,6 +338,64 @@ expr
       printf("mod %d %d\n", $1, $3);
       $$ = $1 % $3;
     }
+  | expr '>' expr
+    {
+      /* e1: 8(sp)->t1, e2:0(sp)->t0 */
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "ld t1, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // t2 = t0 - t1
+      fprintf(codegen, "sub t2, t0, t1\n");
+      // if t2 < 0, t1 > t0, -> t3 = 1
+      fprintf(codegen, "slt t3, t2, zero\n");
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t3, 0(sp)\n");
+
+    }
+  | expr '<' expr
+    {
+      /* e1: 8(sp)->t1, e2:0(sp)->t0 */
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "ld t1, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // t2 = t1 - t0
+      fprintf(codegen, "sub t2, t1, t0\n");
+      // if t2 < 0, t1 < t0, -> t3 = 1
+      fprintf(codegen, "slt t3, t2, zero\n");
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t3, 0(sp)\n");
+    }
+  | expr EQL expr
+    {
+      /* e1: 8(sp)->t1, e2:0(sp)->t0 */
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "ld t1, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+
+      fprintf(codegen, "xor t2, t0, t1\n");
+      fprintf(codegen, "sltu t3, zero, t2\n");
+      fprintf(codegen, "xori t4, t3, 1\n");
+
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t4, 0(sp)\n");
+    }
+  | expr NEQ expr
+    {
+      /* e1: 8(sp)->t1, e2:0(sp)->t0 */
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "ld t1, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+
+      fprintf(codegen, "xor t2, t0, t1\n");
+      fprintf(codegen, "sltu t3, zero, t2\n");
+      
+      fprintf(codegen, "addi sp, sp, -8\n");
+      fprintf(codegen, "sd t2, 0(sp)\n");
+    }
   | '(' expr ')' {$$ = $2;}
   | int_num {
       fcomment("push num to stack");
@@ -465,6 +556,10 @@ variable
     }
 ;
 
+compound_stmt
+  : '{' '}' { $$ = "{}"; }
+  | '{' codegen_stmts '}'
+;
 
 %%
 

@@ -33,6 +33,10 @@ void push_execute_func(char*func_name);
 void pop_execute_func();
 void print_execute_func();
 
+void init_if_else_stack();
+void push_if_else_stack();
+int pop_if_else_stack();
+
 typedef struct symbol_entry *PTR_SYMB;
 
 struct symbol_entry {
@@ -49,6 +53,10 @@ struct symbol_entry {
 
 char* exe_func[MAX_TABLE_SIZE];
 int exe_func_counter;
+
+int if_else_stack[MAX_TABLE_SIZE];
+int if_else_counter;
+int if_else_pointer;
 
 extern int cur_scope;
 extern int cur_counter; // number of symbol in the table
