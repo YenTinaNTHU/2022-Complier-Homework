@@ -291,7 +291,7 @@ scalar_decl
       // write the value to the variable
       fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
       fprintf(codegen, "\n");
-      // print_symbol_table(5);
+      print_symbol_table(30);
     }
   | type '*' ident '=' expr ';'
     {
@@ -321,6 +321,32 @@ scalar_decl
       set_int_type($2);
       print_symbol_table(20);
     }
+  | type '*' ident '=' expr ','
+    {
+      install_symbol($3);
+      set_local_vars($3);
+      set_ptr_type($3);
+      print_symbol_table(10);
+      int idx = look_up_symbol($3);
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "\n");
+    }
+    '*' ident '=' expr ';'
+    {
+      install_symbol($9);
+      set_local_vars($9);
+      set_ptr_type($9);
+      print_symbol_table(10);
+      int idx = look_up_symbol($9);
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "\n");
+    }
 ;
 
 array_decl
@@ -342,10 +368,10 @@ array_decl
       /* since we fix the size of frame, no need to move the stack pointer */
       // let ident point to ident[0]
       int idx = look_up_symbol($2);
-      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset);
       // load ident[0] to ident address
-      fprintf(codegen, "li t0, %d\n", byte_offset + 8);
-      fprintf(codegen, "sd t0, %d(fp)\n", -1 * byte_offset);
+      fprintf(codegen, "li t0, %d\n", offset + 1);
+      fprintf(codegen, "sd t0, %d(fp)\n", -1 * offset * 8);
     }
 ;
 
@@ -477,7 +503,7 @@ expr
       fprintf(codegen, "sltu t3, zero, t2\n");
 
       fprintf(codegen, "addi sp, sp, -8\n");
-      fprintf(codegen, "sd t2, 0(sp)\n");
+      fprintf(codegen, "sd t3, 0(sp)\n");
     }
   | '(' expr ')' {$$ = $2;}
   | int_num {
@@ -497,6 +523,8 @@ expr
       fcomment("get variable's value");
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "addi t6, zero, 8\n");
+      fprintf(codegen, "mul t0, t0, t6\n");
       fprintf(codegen, "sub t0, fp, t0\n");
       // 2. store the value to t1
       fprintf(codegen, "ld t1, 0(t0)\n");
@@ -508,11 +536,11 @@ expr
       $$ = 1;
     }
   | variable '=' expr
-    {;
+    {
       printf("assign variable %s\n", $1);
       fcomment("assign variable");
       /* init -- variable's byte offset: 8(sp), expr: 0(sp) */
-      /* t0: variable's byte offset */
+      /* t0: variable's offset */
       /* t1: expr's value */
       // 1. pop and load value of expr to t1
       fprintf(codegen, "ld t1, 0(sp)\n");
@@ -520,6 +548,8 @@ expr
       // 2. pop and load the address to t0
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "addi t6, zero, 8\n");
+      fprintf(codegen, "mul t0, t0, t6\n");
       fprintf(codegen, "sub t0, fp, t0\n");
       // 3. stored the value of expr to *variable (address stored in t1)
       fprintf(codegen, "sd t1, 0(t0)\n");
@@ -560,9 +590,9 @@ variable
       /* push the variable's byte offset to the stack */
       printf("push %s's byte offset to the stack\n", $1);
       int idx = look_up_symbol($1);
-      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset);
       fcomment("push ident offset to stack");
-      fprintf(codegen, "li t0, %d\n", byte_offset);
+      fprintf(codegen, "li t0, %d\n", offset);
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
@@ -575,7 +605,7 @@ variable
       /* t1: value of expr */
       printf("push the byte offset of array's element to the stack\n");
       int idx = look_up_symbol($1);
-      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8; // +1 for the first element of array
+      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       fcomment("push array's ident byte offset to stack");
       // write the offset of the first element into t0
       fprintf(codegen, "li t1, %d\n", byte_offset);
@@ -584,8 +614,6 @@ variable
       // pop the value of expr to t1 and count the byte offset
       fprintf(codegen, "ld t1, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "li t3, 8\n");
-      fprintf(codegen, "mul t1, t1, t3\n");
       // target byte offset = t0 + t1
       fprintf(codegen, "add t0, t0, t1\n");
       // push the target byte offset to the stack
@@ -627,8 +655,6 @@ variable
       // pop the value of expr to t1 and count the byte address
       fprintf(codegen, "ld t1, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "li t3, 8\n");
-      fprintf(codegen, "mul t1, t1, t3\n");
       // target byte offset = t0 + t1
       fprintf(codegen, "add t0, t0, t1\n");
       // push the target byte offset to the stack

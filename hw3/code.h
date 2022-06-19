@@ -3,7 +3,7 @@
 
 #define MAX_TABLE_SIZE 5000
 #define MAX_ARGUMENT_NUM 3
-#define MAX_LOCAL_NUM 25
+#define MAX_LOCAL_NUM 50
 #define FRAME_SIZE (2 + MAX_ARGUMENT_NUM + MAX_LOCAL_NUM) * 8
 
 #define T_FUNCTION 1
