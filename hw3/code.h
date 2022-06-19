@@ -3,7 +3,7 @@
 
 #define MAX_TABLE_SIZE 5000
 #define MAX_ARGUMENT_NUM 3
-#define MAX_LOCAL_NUM 3
+#define MAX_LOCAL_NUM 20
 #define FRAME_SIZE (2 + MAX_ARGUMENT_NUM + MAX_LOCAL_NUM) * 8
 
 #define T_FUNCTION 1
@@ -42,8 +42,8 @@ struct symbol_entry {
 
    int offset;
    int type;
-   int total_args;
-   int total_locals;
+   int total_args; // for T_FUNCTION
+   int total_locals; // for T_FUNCTION
    
 } table[MAX_TABLE_SIZE];
 

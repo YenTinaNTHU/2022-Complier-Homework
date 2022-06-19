@@ -1,6 +1,6 @@
 make
-dir=testcase/Pointer
-file=0.c
+dir=testcase/Jump
+file=simple_test.c
 ./parser < ./$dir/$file > ./ans.txt
 
 cp codegen.S ./$dir/codegen.S
