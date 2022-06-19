@@ -1,156 +1,21 @@
 // enter funciton body
 .global codegen
 codegen:
-addi sp, sp, -200
-sd ra, 192(sp)
-sd fp, 184(sp)
-addi fp, sp, 200
-
-// push num to stack
-li t0, 1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld t0, 0(sp)
-addi sp, sp, 8
-sd t0, -40(fp)
-
-// push ident offset to stack
-li t0, 40
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-// push num to stack
-li t0, 1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-
-ld t0, 0(sp)
-addi sp, sp, 8
-ld t1, 0(sp)
-addi sp, sp, 8
-add t0, t1, t0
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld t0, 0(sp)
-addi sp, sp, 8
-ld t1, 0(sp)
-addi sp, sp, 8
-xor t2, t0, t1
-sltu t3, zero, t2
-xori t4, t3, 1
-addi sp, sp, -8
-sd t4, 0(sp)
-ld t0, 0(sp)
-addi sp, sp, 8
-beq zero, t0, .L10
-// push ident offset to stack
-li t0, 40
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 2
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// assign variable
-ld t1, 0(sp)
-addi sp, sp, 8
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-sd t1, 0(t0)
-
-j .L11
-
-.L10:
-// push ident offset to stack
-li t0, 40
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 3
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// assign variable
-ld t1, 0(sp)
-addi sp, sp, 8
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-sd t1, 0(t0)
-
-.L11:
-// push ident offset to stack
-li t0, 40
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-// push num to stack
-li t0, 1000
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld t0, 0(sp)
-addi sp, sp, 8
-ld t1, 0(sp)
-addi sp, sp, 8
-mul t0, t1, t0
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
+addi sp, sp, -240
+sd ra, 232(sp)
+sd fp, 224(sp)
+addi fp, sp, 240
 
 // array declaration
-li t0, -56
-sd t0, -48(fp)
-// push num to stack
-li t0, 1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
+li t0, 48
+sd t0, -40(fp)
+// push ident offset to stack
+li t0, 184
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // push num to stack
-li t0, 1000
+li t0, 0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -162,37 +27,9 @@ addi sp, sp, 8
 sub t0, fp, t0
 sd t1, 0(t0)
 
-// push num to stack
-li t0, 2
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
+.FOR1:
+// push ident offset to stack
+li t0, 184
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -205,7 +42,43 @@ addi sp, sp, -8
 sd t1, 0(sp)
 
 // push num to stack
-li t0, 1000
+li t0, 17
+addi sp, sp, -8
+sd t0, 0(sp)
+
+ld t0, 0(sp)
+addi sp, sp, 8
+ld t1, 0(sp)
+addi sp, sp, 8
+sub t2, t1, t0
+slt t3, t2, zero
+addi sp, sp, -8
+sd t3, 0(sp)
+ld t0, 0(sp)
+addi sp, sp, 8
+beq zero, t0, .END_FOR1
+j .FOR_STMT1
+.FOR_UPDATE1:
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
+
+// push num to stack
+li t0, 1
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -226,43 +99,23 @@ addi sp, sp, 8
 sub t0, fp, t0
 sd t1, 0(t0)
 
-// push num to stack
-li t0, 3
+j .FOR1
+.FOR_STMT1:
+// push ident offset to stack
+li t0, 184
 addi sp, sp, -8
 sd t0, 0(sp)
 
-// push the address of array's element to the stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 3000
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// assign variable
-ld t1, 0(sp)
-addi sp, sp, 8
+// get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
 sub t0, fp, t0
-sd t1, 0(t0)
-
-// push num to stack
-li t0, 4
+ld t1, 0(t0)
 addi sp, sp, -8
-sd t0, 0(sp)
+sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 48
+li t1, 40
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -273,20 +126,86 @@ add t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
-// address
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-sd t0, -96(fp)
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
 
-// push value of pointer to stack
-li t1, 96
+// assign variable
+ld t1, 0(sp)
+addi sp, sp, 8
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+sd t1, 0(t0)
+
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
+
+// push array's ident byte offset to stack
+li t1, 40
 sub t1, fp, t1
 ld t0, 0(t1)
+ld t1, 0(sp)
+addi sp, sp, 8
+li t3, 8
+mul t1, t1, t3
+add t0, t0, t1
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
+
+ld a0, 0(sp)
+addi sp, sp, 8
+jal ra, delay
+
+j .FOR_UPDATE1
+
+.END_FOR1:
+// push num to stack
+li t0, 0
+addi sp, sp, -8
+sd t0, 0(sp)
+
+ld t0, 0(sp)
+addi sp, sp, 8
+sd t0, -192(fp)
+
+// array declaration
+li t0, 208
+sd t0, -200(fp)
+// push ident offset to stack
+li t0, 184
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // push num to stack
-li t0, 4000
+li t0, 0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -297,159 +216,68 @@ ld t0, 0(sp)
 addi sp, sp, 8
 sub t0, fp, t0
 sd t1, 0(t0)
+
+.FOR2:
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
+
+// push num to stack
+li t0, 17
+addi sp, sp, -8
+sd t0, 0(sp)
+
+ld t0, 0(sp)
+addi sp, sp, 8
+ld t1, 0(sp)
+addi sp, sp, 8
+sub t2, t1, t0
+slt t3, t2, zero
+addi sp, sp, -8
+sd t3, 0(sp)
+ld t0, 0(sp)
+addi sp, sp, 8
+beq zero, t0, .END_FOR2
+j .FOR_STMT2
+.FOR_UPDATE2:
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
+
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
 
 // push num to stack
 li t0, 1
 addi sp, sp, -8
 sd t0, 0(sp)
 
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
+
+ld t0, 0(sp)
+addi sp, sp, 8
 ld t1, 0(sp)
 addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
-
-// push num to stack
-li t0, 2
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
-
-// push num to stack
-li t0, 3
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
-
-// push num to stack
-li t0, 4
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
-
-// push num to stack
-li t0, 2
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld t0, 0(sp)
-addi sp, sp, 8
-sd t0, -104(fp)
-
-// push ident offset to stack
-li t0, 104
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// get variable's value
-ld t0, 0(sp)
-addi sp, sp, 8
-sub t0, fp, t0
-ld t1, 0(t0)
-addi sp, sp, -8
-sd t1, 0(sp)
-
-// push the address of array's element to the stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push num to stack
-li t0, 2500
+add t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -461,20 +289,10 @@ addi sp, sp, 8
 sub t0, fp, t0
 sd t1, 0(t0)
 
-// push num to stack
-li t0, 2
-addi sp, sp, -8
-sd t0, 0(sp)
-
-// push array's ident byte offset to stack
-li t1, 48
-sub t1, fp, t1
-ld t0, 0(t1)
-ld t1, 0(sp)
-addi sp, sp, 8
-li t3, 8
-mul t1, t1, t3
-add t0, t0, t1
+j .FOR2
+.FOR_STMT2:
+// push ident offset to stack
+li t0, 40
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -486,12 +304,37 @@ ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
-ld a0, 0(sp)
-addi sp, sp, 8
-jal ra, delay
+// push ident offset to stack
+li t0, 184
+addi sp, sp, -8
+sd t0, 0(sp)
 
+// get variable's value
+ld t0, 0(sp)
+addi sp, sp, 8
+sub t0, fp, t0
+ld t1, 0(t0)
+addi sp, sp, -8
+sd t1, 0(sp)
+
+
+ld t0, 0(sp)
+addi sp, sp, 8
+ld t1, 0(sp)
+addi sp, sp, 8
+add t0, t1, t0
+addi sp, sp, -8
+sd t0, 0(sp)
+
+ld t0, 0(sp)
+addi sp, sp, 8
+sd t0, -344(fp)
+
+j .FOR_UPDATE2
+
+.END_FOR2:
 // exit function body
-ld ra, 192(sp)
-ld fp, 184(sp)
-addi sp, sp, 200
+ld ra, 232(sp)
+ld fp, 224(sp)
+addi sp, sp, 240
 jr ra

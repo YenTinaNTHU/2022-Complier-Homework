@@ -29,7 +29,7 @@
 %type<int_v> expr int_num
 %type<string_v> stmt
 %type<string_v> array_decl
-%type<string_v> compound_stmt if_stmt if_else_stmt
+%type<string_v> compound_stmt if_stmt if_else_stmt while_stmt do_while_stmt for_stmt
 
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
@@ -131,10 +131,13 @@ stmt
   : expr ';' {$$ = "expr";}
   | if_stmt
     {
-      fprintf(codegen, ".L%d0: \n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, ".IF%d0: \n", if_else_stack[if_else_pointer-1]);
       pop_if_else_stack();
     }
   | if_else_stmt
+  | while_stmt
+  | do_while_stmt
+  | for_stmt
 ;
 
 if_stmt
@@ -144,7 +147,7 @@ if_stmt
       push_if_else_stack(if_else_counter);
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "beq zero, t0, .L%d0\n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, "beq zero, t0, .IF%d0\n", if_else_stack[if_else_pointer-1]);
     }
     ')' compound_stmt
 ;
@@ -152,14 +155,85 @@ if_stmt
 if_else_stmt
   : if_stmt ELSE
     {
-      fprintf(codegen, "j .L%d1\n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, "j .IF%d1\n", if_else_stack[if_else_pointer-1]);
       fprintf(codegen, "\n");
-      fprintf(codegen, ".L%d0:\n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, ".IF%d0:\n", if_else_stack[if_else_pointer-1]);
     }
     compound_stmt
     {
-      fprintf(codegen, ".L%d1:\n", if_else_stack[if_else_pointer-1]);
+      fprintf(codegen, ".IF%d1:\n", if_else_stack[if_else_pointer-1]);
       pop_if_else_stack();
+    }
+;
+
+while_stmt
+  : WHILE '('
+    {
+      fprintf(codegen, "WHILE:\n");
+    }
+    expr
+    {
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "beq zero, t0, END_WHILE\n");
+    }
+    ')' compound_stmt
+    {
+      fprintf(codegen, "j WHILE\n");
+      fprintf(codegen, "\n");
+      fprintf(codegen, "END_WHILE:\n");
+    }
+;
+
+do_while_stmt
+  : DO
+    {
+      fprintf(codegen, "DOWHILE:\n");
+    }
+    compound_stmt WHILE '(' expr
+    {
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "beq zero, t0, END_DOWHILE\n");
+      fprintf(codegen, "j DOWHILE\n");
+      fprintf(codegen, "\n");
+      fprintf(codegen, "END_DOWHILE:\n");
+    }
+    ')' ';'
+;
+
+for_stmt
+  : FOR '(' expr
+    {
+      // init
+      for_counter++;
+      fprintf(codegen, ".FOR%d:\n", for_counter);
+    }
+    ';' expr 
+    {
+      // test
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "beq zero, t0, .END_FOR%d\n", for_counter);
+    }
+    ';'
+    {
+      fprintf(codegen, "j .FOR_STMT%d\n", for_counter);
+      fprintf(codegen, ".FOR_UPDATE%d:\n", for_counter);
+    }
+    expr 
+    {
+      fprintf(codegen, "j .FOR%d\n", for_counter);
+    }
+    ')'
+    {
+      fprintf(codegen, ".FOR_STMT%d:\n", for_counter);
+    }
+    compound_stmt
+    {
+      fprintf(codegen, "j .FOR_UPDATE%d\n", for_counter);
+      fprintf(codegen, "\n");
+      fprintf(codegen, ".END_FOR%d:\n", for_counter);
     }
 ;
 
@@ -238,6 +312,15 @@ scalar_decl
       fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
       fprintf(codegen, "\n");
     }
+  | type ident ';'
+    {
+      printf("declare variable %s\n", $2);
+      /* set local variable */
+      install_symbol($2);
+      set_local_vars($2);
+      set_int_type($2);
+      print_symbol_table(20);
+    }
 ;
 
 array_decl
@@ -259,10 +342,10 @@ array_decl
       /* since we fix the size of frame, no need to move the stack pointer */
       // let ident point to ident[0]
       int idx = look_up_symbol($2);
-      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       // load ident[0] to ident address
-      fprintf(codegen, "li t0, %d\n", byte_offset - 8);
-      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "li t0, %d\n", byte_offset + 8);
+      fprintf(codegen, "sd t0, %d(fp)\n", -1 * byte_offset);
     }
 ;
 
@@ -392,7 +475,7 @@ expr
 
       fprintf(codegen, "xor t2, t0, t1\n");
       fprintf(codegen, "sltu t3, zero, t2\n");
-      
+
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t2, 0(sp)\n");
     }
@@ -530,7 +613,7 @@ variable
     }
   | '*' '(' ident '+' expr ')' %prec DEREF
     {
-      /* push the address of array's element to the stack */
+       /* push the address of array's element to the stack */
       /* t0: byte offset of ident */
       /* t1: value of expr */
       printf("push the address of array's element to the stack\n");
@@ -567,6 +650,8 @@ int main(void)
 {
   init_symbol_table();
   init_execute_func();
+  init_if_else_stack();
+  for_counter = 0;
   codegen = fopen("codegen.S","w");
   yyparse();
   fclose(codegen);

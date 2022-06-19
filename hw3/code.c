@@ -8,6 +8,7 @@ int cur_counter = 0;
 int exe_func_counter = 0;
 int if_else_counter = 0;
 int if_else_pointer = 0;
+int for_counter = 0;
 
 void print_symbol_table(int n){
     printf("name      | scope | mode  | offset| type  | total_args| total_locals\n");
