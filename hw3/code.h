@@ -8,7 +8,7 @@
 
 #define T_FUNCTION 1
 #define T_POINTER 2
-#define T_CHAR 3
+#define T_CHAR4 3
 #define T_INT 4
 #define T_FLOAT 5
 
@@ -26,6 +26,8 @@ void set_local_vars(char *name);
 void set_global_vars(char *name);
 void set_int_type(char *name);
 void set_ptr_type(char *name);
+void set_char4_type(char *name);
+
 void set_scope_and_offset_of_param(char *functor, int total_args);
 
 void init_execute_func();

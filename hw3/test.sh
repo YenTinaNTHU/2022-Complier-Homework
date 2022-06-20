@@ -1,6 +1,6 @@
 make
 dir=testcase/Function
-file=1.c
+file=0.c
 ./parser < ./$dir/$file > ./ans.txt
 
 cp codegen.S ./$dir/codegen.S

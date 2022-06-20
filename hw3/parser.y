@@ -7,7 +7,7 @@
     int yyerror(char *s);
 
     void fcomment(char *s){
-      char *str1 = "//";
+      char *str1 = "#";
       fprintf(codegen, "%s %s\n", str1, s);
     }
 
@@ -25,12 +25,13 @@
 %type<string_v> program program_ingredients program_ingredient
 %type<string_v> codegen_decl codegen_def codegen_stmts codegen_stmt
 %type<string_v> digital_write_func delay_func
-%type<string_v> scalar_decl type ident
+%type<string_v> scalar_decl ident
 %type<int_v> expr int_num variable
 %type<string_v> stmt
 %type<string_v> array_decl
 %type<string_v> compound_stmt if_stmt if_else_stmt while_stmt do_while_stmt for_stmt
 %type<string_v> func_decl func_def return_stmt break_stmt
+%type<int_v> type
 
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
@@ -305,7 +306,11 @@ scalar_decl
       /* set local variable */
       install_symbol($2);
       set_local_vars($2);
-      set_int_type($2);
+      if($1 == T_CHAR4){
+        set_char4_type($2);
+      }else{
+        set_int_type($2);
+      }
       print_symbol_table(10);
       /* store value to the stack */
       int idx = look_up_symbol($2);
@@ -431,7 +436,11 @@ array_decl
     }
 ;
 
-type: INT | CONST INT;
+type
+  : INT {$$ = T_INT;}
+  | CONST INT {$$ = T_INT;}
+  | CHAR4 {$$ = T_CHAR4;}
+;
 
 ident: ID;
 
@@ -449,6 +458,15 @@ expr
         fprintf(codegen, "ld t1, 0(sp)\n");
         fprintf(codegen, "addi sp, sp, 8\n");
         fprintf(codegen, "sub t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
+      }else if($1 == T_CHAR4){
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "kadd8 t0, t1, t0\n");
         fprintf(codegen, "addi sp, sp, -8\n");
         fprintf(codegen, "sd t0, 0(sp)\n");
         fprintf(codegen, "\n");
@@ -473,6 +491,15 @@ expr
         fprintf(codegen, "ld t1, 0(sp)\n");
         fprintf(codegen, "addi sp, sp, 8\n");
         fprintf(codegen, "add t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
+      }else if($1 == T_CHAR4){
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "ksub8 t0, t1, t0\n");
         fprintf(codegen, "addi sp, sp, -8\n");
         fprintf(codegen, "sd t0, 0(sp)\n");
         fprintf(codegen, "\n");
@@ -805,6 +832,7 @@ func_decl
       // Put codegen() into symbol table
       install_symbol($2);
       set_global_vars($2);
+      $$ = $2;
     }
   | type ident '(' type '*' ident ',' type '*' ident ')' ';'
     {
@@ -812,6 +840,7 @@ func_decl
       // Put codegen() into symbol table
       install_symbol($2);
       set_global_vars($2);
+      $$ = $2;
     }
   | type ident '(' type '*' ident ',' type ident ')' ';'
     {
@@ -819,6 +848,7 @@ func_decl
       // Put codegen() into symbol table
       install_symbol($2);
       set_global_vars($2);
+      $$ = $2;
     }
 ;
 
@@ -854,7 +884,7 @@ func_def
       */
       cur_scope--;
     }
-    compound_stmt
+    compound_stmt {$$ = $2;}
   | type ident '(' type '*' ident ',' type '*' ident ')'
     {
       cur_scope++;
@@ -885,7 +915,7 @@ func_def
       */
       cur_scope--;
     }
-    compound_stmt
+    compound_stmt {$$ = $2;}
   | type ident '(' type '*' ident ',' type ident ')'
     {
       cur_scope++;
@@ -915,7 +945,7 @@ func_def
       */
       cur_scope--;
     }
-    compound_stmt
+    compound_stmt {$$ = $2;}
 ;
 
 

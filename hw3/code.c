@@ -126,6 +126,11 @@ void set_ptr_type(char *name){
     table[idx].type = T_POINTER;
 }
 
+void set_char4_type(char *name){
+    int idx = look_up_symbol(name);
+    table[idx].type = T_CHAR4;
+}
+
 void set_scope_and_offset_of_param(char *functor, int total_args){
     int idx = look_up_symbol(functor);
     if(idx<0){
