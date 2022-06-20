@@ -7,7 +7,8 @@ sd fp, 440(sp)
 addi fp, sp, 456
 
 // array declaration
-li t0, 9
+li t0, -72
+add t0, fp, t0
 sd t0, -64(fp)
 // push num to stack
 li t0, 0
@@ -20,16 +21,14 @@ sd t0, -128(fp)
 
 DOWHILE:
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -52,27 +51,24 @@ ld t0, 0(sp)
 addi sp, sp, 8
 beq zero, t0, .IF10
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -86,25 +82,20 @@ ld t1, 0(sp)
 addi sp, sp, 8
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 sd t1, 0(t0)
 
 j .IF11
 
 .IF10:
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -127,27 +118,24 @@ ld t0, 0(sp)
 addi sp, sp, 8
 beq zero, t0, .IF20
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -161,50 +149,43 @@ ld t1, 0(sp)
 addi sp, sp, 8
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 sd t1, 0(t0)
 
 j .IF21
 
 .IF20:
 // count the address value
-li t0, 8
+li t0, -64
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
-
 ld t0, 0(sp)
 addi sp, sp, 8
+slli t0, t0, 3
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t1, t0
+sub t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -215,9 +196,10 @@ sd t0, 0(sp)
 
 ld t0, 0(sp)
 addi sp, sp, 8
+slli t0, t0, 3
 ld t1, 0(sp)
 addi sp, sp, 8
-sub t0, t1, t0
+add t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -226,41 +208,37 @@ addi sp, sp, 8
 sd t0, -136(fp)
 
 // count the address value
-li t0, 8
+li t0, -64
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
-
 ld t0, 0(sp)
 addi sp, sp, 8
+slli t0, t0, 3
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t1, t0
+sub t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -271,9 +249,10 @@ sd t0, 0(sp)
 
 ld t0, 0(sp)
 addi sp, sp, 8
+slli t0, t0, 3
 ld t1, 0(sp)
 addi sp, sp, 8
-sub t0, t1, t0
+add t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -282,27 +261,24 @@ addi sp, sp, 8
 sd t0, -144(fp)
 
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -314,9 +290,6 @@ sd t0, 0(sp)
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -329,13 +302,9 @@ sd t0, 0(sp)
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
-
 
 ld t0, 0(sp)
 addi sp, sp, 8
@@ -350,29 +319,25 @@ ld t1, 0(sp)
 addi sp, sp, 8
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 sd t1, 0(t0)
 
 .IF21:
 .IF11:
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -382,7 +347,6 @@ li t0, 1
 addi sp, sp, -8
 sd t0, 0(sp)
 
-
 ld t0, 0(sp)
 addi sp, sp, 8
 ld t1, 0(sp)
@@ -396,22 +360,17 @@ ld t1, 0(sp)
 addi sp, sp, 8
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 sd t1, 0(t0)
 
 // count the address value
-li t0, 16
+li t0, -128
+add t0, t0, fp
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -452,21 +411,17 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -477,21 +432,17 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -538,21 +489,17 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
@@ -563,21 +510,17 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 64
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -64(fp)
 ld t1, 0(sp)
 addi sp, sp, 8
-add t0, t0, t1
+slli t1, t1, 3
+sub t0, t0, t1
 addi sp, sp, -8
 sd t0, 0(sp)
 
 // get variable's value
 ld t0, 0(sp)
 addi sp, sp, 8
-addi t6, zero, 8
-mul t0, t0, t6
-sub t0, fp, t0
 ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)

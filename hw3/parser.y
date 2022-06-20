@@ -25,8 +25,8 @@
 %type<string_v> program program_ingredients program_ingredient
 %type<string_v> codegen_decl codegen_def codegen_stmts codegen_stmt
 %type<string_v> digital_write_func delay_func
-%type<string_v> scalar_decl type ident variable
-%type<int_v> expr int_num
+%type<string_v> scalar_decl type ident
+%type<int_v> expr int_num variable
 %type<string_v> stmt
 %type<string_v> array_decl
 %type<string_v> compound_stmt if_stmt if_else_stmt while_stmt do_while_stmt for_stmt
@@ -390,16 +390,17 @@ array_decl
       for(int i=0; i<$4; i++){
         install_symbol("");
         set_local_vars("");
-        set_int_type($2);
+        set_int_type("");
       }
       print_symbol_table(10);
       /* since we fix the size of frame, no need to move the stack pointer */
       // let ident point to ident[0]
       int idx = look_up_symbol($2);
-      int offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset);
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       // load ident[0] to ident address
-      fprintf(codegen, "li t0, %d\n", offset + 1);
-      fprintf(codegen, "sd t0, %d(fp)\n", -1 * offset * 8);
+      fprintf(codegen, "li t0, %d\n", byte_offset - 8);
+      fprintf(codegen, "add t0, fp, t0\n");
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
     }
 ;
 
@@ -410,31 +411,57 @@ ident: ID;
 expr
 	: expr '+' expr
     {
-      /* Assume the operants are already in stack */
-      fprintf(codegen, "\n");
-      fprintf(codegen, "ld t0, 0(sp)\n");
-      fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "ld t1, 0(sp)\n");
-      fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "add t0, t1, t0\n");
-      fprintf(codegen, "addi sp, sp, -8\n");
-      fprintf(codegen, "sd t0, 0(sp)\n");
-      fprintf(codegen, "\n");
       printf("add %d %d\n", $1, $3);
-      $$ = $1 + $3;
+      /* Assume the operants are already in stack */
+      /* e1 -> t1 */
+      /* e2 -> t0 */
+      if($1 == T_POINTER){
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "slli t0, t0, 3\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "sub t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
+      }else{
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "add t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
+      }
+      $$ = $1;
     }
 	| expr '-' expr
     {
-      fprintf(codegen, "ld t0, 0(sp)\n");
-      fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "ld t1, 0(sp)\n");
-      fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "sub t0, t1, t0\n");
-      fprintf(codegen, "addi sp, sp, -8\n");
-      fprintf(codegen, "sd t0, 0(sp)\n");
-      fprintf(codegen, "\n");
+      if($1 == T_POINTER){
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "slli t0, t0, 3\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "add t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
+      }else{
+        fprintf(codegen, "ld t0, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "ld t1, 0(sp)\n");
+        fprintf(codegen, "addi sp, sp, 8\n");
+        fprintf(codegen, "sub t0, t1, t0\n");
+        fprintf(codegen, "addi sp, sp, -8\n");
+        fprintf(codegen, "sd t0, 0(sp)\n");
+        fprintf(codegen, "\n");
       printf("sub %d %d\n", $1, $3);
-      $$ = $1 - $3;
+      }
+      
+      $$ = $1;
     }
 	| expr '*' expr
     {
@@ -447,7 +474,7 @@ expr
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
       printf("mul %d %d\n", $1, $3);
-      $$ = $1 * $3;
+      $$ = $1;
     }
 	| expr '/' expr
     {
@@ -460,7 +487,7 @@ expr
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
       printf("div %d %d\n", $1, $3);
-      $$ = $1 / $3;
+      $$ = $1;
     }
 	| expr '%' expr
     {
@@ -473,7 +500,7 @@ expr
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
       printf("mod %d %d\n", $1, $3);
-      $$ = $1 % $3;
+      $$ = $1;
     }
   | expr '>' expr
     {
@@ -488,7 +515,7 @@ expr
       fprintf(codegen, "slt t3, t2, zero\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t3, 0(sp)\n");
-
+      $$ = $1;
     }
   | expr '<' expr
     {
@@ -503,6 +530,7 @@ expr
       fprintf(codegen, "slt t3, t2, zero\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t3, 0(sp)\n");
+      $$ = $1;
     }
   | expr EQL expr
     {
@@ -518,6 +546,7 @@ expr
 
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t4, 0(sp)\n");
+      $$ = $1;
     }
   | expr NEQ expr
     {
@@ -532,6 +561,7 @@ expr
 
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t3, 0(sp)\n");
+      $$ = $1;
     }
   | '(' expr ')' {$$ = $2;}
   | int_num {
@@ -551,9 +581,6 @@ expr
       fcomment("get variable's value");
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "addi t6, zero, 8\n");
-      fprintf(codegen, "mul t0, t0, t6\n");
-      fprintf(codegen, "sub t0, fp, t0\n");
       // 2. store the value to t1
       fprintf(codegen, "ld t1, 0(t0)\n");
       // 3. push t1 to stack
@@ -561,7 +588,7 @@ expr
       fprintf(codegen, "sd t1, 0(sp)\n");
       fprintf(codegen, "\n");
       
-      $$ = 1;
+      $$ = $1;
     }
   | variable '=' expr
     {
@@ -576,13 +603,10 @@ expr
       // 2. pop and load the address to t0
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "addi t6, zero, 8\n");
-      fprintf(codegen, "mul t0, t0, t6\n");
-      fprintf(codegen, "sub t0, fp, t0\n");
       // 3. stored the value of expr to *variable (address stored in t1)
       fprintf(codegen, "sd t1, 0(t0)\n");
       fprintf(codegen, "\n");
-      $$ = $3;
+      $$ = $1;
     }
   | '&' variable %prec ADDR
     {
@@ -590,7 +614,7 @@ expr
       /* since variable's address is put at sp(0), there is noting to do. */
       // printf("%s address\n", $2);
       fcomment("address");
-      $$ = 1;
+      $$ = $2;
     }
   | '-' expr %prec UMINUS
     {
@@ -602,7 +626,7 @@ expr
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
-      $$ = 1;
+      $$ = $2;
     }
   | ident '(' expr ',' expr ')'
     {
@@ -631,28 +655,28 @@ variable
       /* push the variable's byte offset to the stack */
       // printf("push %s's byte offset to the stack\n", $1);
       int idx = look_up_symbol($1);
-
       // count the offset base on symbol's mode
       int offset = 0;
       switch(table[idx].mode){
         case ARGUMENT_MODE:
-          offset = (2 + table[idx].offset);
+          offset = -1 * (2 + table[idx].offset) * 8;
           break;
         case LOCAL_MODE:
-          offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset);
+          offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
           break;
         default: /* local */
-          offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset);
+          offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       }
 
-      // the address is the absolute address/8
+      // count the absolute address
       fcomment("count the address value");
       fprintf(codegen, "li t0, %d\n", offset);
-
+      fprintf(codegen, "add t0, t0, fp\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
-      $$ = $1;
+
+      $$ = table[idx].type;
     }
   | ident '[' expr ']'
     {
@@ -662,22 +686,22 @@ variable
       printf("push the byte offset of array's element to the stack\n");
       int idx = look_up_symbol($1);
       // TODO
-      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       fcomment("push array's ident byte offset to stack");
       // write the offset of the first element into t0
-      fprintf(codegen, "li t1, %d\n", byte_offset);
-      fprintf(codegen, "sub t1, fp, t1\n");
-      fprintf(codegen, "ld t0, 0(t1)\n");
+      fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
       // pop the value of expr to t1 and count the byte offset
       fprintf(codegen, "ld t1, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
+      fprintf(codegen, "slli t1, t1, 3\n");
       // target byte offset = t0 + t1 
-      fprintf(codegen, "add t0, t0, t1\n");
+      fprintf(codegen, "sub t0, t0, t1\n");
       // push the target byte offset to the stack
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
-      $$ = $1;
+
+      $$ = T_INT;
     }
   | '*' ident %prec DEREF
     {
@@ -688,23 +712,24 @@ variable
       int byte_offset = 0;
       switch(table[idx].mode){
         case ARGUMENT_MODE:
-          byte_offset =  (2 + table[idx].offset) * 8;
+          byte_offset =  -1 * (2 + table[idx].offset) * 8;
           break;
         case LOCAL_MODE:
-          byte_offset =  (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+          byte_offset =  -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
           break;
         default: /* local */
-          byte_offset =  (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+          byte_offset =  -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       }
 
       fcomment("push value of pointer to stack");
-      // load the value to t0 = fp/8 + offset
-      fprintf(codegen, "ld t0, %d(fp)\n", -1 * byte_offset);
+      // load the value to t0 = fp + byte_offset
+      fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
       // push the target byte offset to the stack
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
-      $$ = $2;
+      
+      $$ = T_INT;
     }
   | '*' '(' ident '+' expr ')' %prec DEREF
     {
@@ -714,22 +739,22 @@ variable
       // printf("push the address of array's element to the stack\n");
       int idx = look_up_symbol($3);
       // TODO
-      int byte_offset = (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       fcomment("push the address of array's element to the stack");
       // write the offset of the first element into t0
-      fprintf(codegen, "li t1, %d\n", byte_offset);
-      fprintf(codegen, "sub t1, fp, t1\n");
-      fprintf(codegen, "ld t0, 0(t1)\n");
+      fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
       // pop the value of expr to t1 and count the byte address
       fprintf(codegen, "ld t1, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      // target byte offset = t0 + t1 + fp/8
-      fprintf(codegen, "add t0, t0, t1\n");
+      fprintf(codegen, "slli t1, t1, 3\n");
+      // target byte address = t0 + t1
+      fprintf(codegen, "sub t0, t0, t1\n");
       // push the target byte offset to the stack
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
       fprintf(codegen, "\n");
-      $$ = $3;
+      
+      $$ = T_INT;
     }
 ;
 

@@ -11,7 +11,7 @@ void codegen() {
   int data[17];
   for (i = 0; i < 17; i = i + 1) {
     int *id = input_data + i;
-    
+    delay(input_data + i);
     int slot = end;
     int cont = slot != 0;
     while (cont) {

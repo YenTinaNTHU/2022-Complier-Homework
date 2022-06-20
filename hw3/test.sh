@@ -6,8 +6,8 @@ file=1.c
 cp codegen.S ./$dir/codegen.S
 cd ./$dir/
 
-riscv64-unknown-elf-gcc -o func main.c codegen.S
-spike pk func
+riscv64-unknown-elf-gcc -o jump main.c codegen.S
+spike pk jump
 
 cd ../..
 make clean
