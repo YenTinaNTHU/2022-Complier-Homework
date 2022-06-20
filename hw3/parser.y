@@ -177,13 +177,13 @@ while_stmt
     {
       fprintf(codegen, "ld t0, 0(sp)\n");
       fprintf(codegen, "addi sp, sp, 8\n");
-      fprintf(codegen, "beq zero, t0, END_WHILE\n");
+      fprintf(codegen, "beq zero, t0, .END_WHILE\n");
     }
     ')' compound_stmt
     {
       fprintf(codegen, "j WHILE\n");
       fprintf(codegen, "\n");
-      fprintf(codegen, "END_WHILE:\n");
+      fprintf(codegen, ".END_WHILE:\n");
     }
 ;
 
@@ -259,7 +259,7 @@ return_stmt
 break_stmt
   : BREAK ';'
     {
-      // TODO
+      fprintf(codegen, "j .END_WHILE\n");
     }
 ;
 
@@ -373,7 +373,34 @@ scalar_decl
     }
   | type ident '=' expr ',' ident '=' expr ';'
     {
-      // TODO
+      /* set local variable */
+      install_symbol($6);
+      set_local_vars($6);
+      set_int_type($6);
+      /* store value to the stack */
+      int idx = look_up_symbol($6);
+      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      // pop value from stack
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // write the value to the variable
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "\n");
+
+      /* set local variable */
+      install_symbol($2);
+      set_local_vars($2);
+      set_int_type($2);
+      /* store value to the stack */
+      idx = look_up_symbol($2);
+      byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      // pop value from stack
+      fprintf(codegen, "ld t0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
+      // write the value to the variable
+      fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
+      fprintf(codegen, "\n");
+      print_symbol_table(10);
     }
 ;
 
@@ -656,21 +683,16 @@ variable
       // printf("push %s's byte offset to the stack\n", $1);
       int idx = look_up_symbol($1);
       // count the offset base on symbol's mode
-      int offset = 0;
-      switch(table[idx].mode){
-        case ARGUMENT_MODE:
-          offset = -1 * (2 + table[idx].offset) * 8;
-          break;
-        case LOCAL_MODE:
-          offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
-          break;
-        default: /* local */
-          offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      int byte_offset = 0;
+      if(table[idx].mode == ARGUMENT_MODE){
+        byte_offset = -1 * (2 + table[idx].offset) * 8;
+      }else{
+        byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       }
 
       // count the absolute address
       fcomment("count the address value");
-      fprintf(codegen, "li t0, %d\n", offset);
+      fprintf(codegen, "li t0, %d\n", byte_offset);
       fprintf(codegen, "add t0, t0, fp\n");
       fprintf(codegen, "addi sp, sp, -8\n");
       fprintf(codegen, "sd t0, 0(sp)\n");
@@ -685,9 +707,14 @@ variable
       /* t1: value of expr */
       printf("push the byte offset of array's element to the stack\n");
       int idx = look_up_symbol($1);
-      // TODO
-      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
-      fcomment("push array's ident byte offset to stack");
+      // count the offset base on symbol's mode
+      int byte_offset = 0;
+      if(table[idx].mode == ARGUMENT_MODE){
+        byte_offset = -1 * (2 + table[idx].offset) * 8;
+      }else{
+        byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      }
+      fcomment("push array ident byte offset to stack");
       // write the offset of the first element into t0
       fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
       // pop the value of expr to t1 and count the byte offset
@@ -708,19 +735,13 @@ variable
       /* push the value of ident to the stack (the offset of *ident) */
       printf("push the value of ident to the stack\n");
       int idx = look_up_symbol($2);
-
+      // count the offset base on symbol's mode
       int byte_offset = 0;
-      switch(table[idx].mode){
-        case ARGUMENT_MODE:
-          byte_offset =  -1 * (2 + table[idx].offset) * 8;
-          break;
-        case LOCAL_MODE:
-          byte_offset =  -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
-          break;
-        default: /* local */
-          byte_offset =  -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      if(table[idx].mode == ARGUMENT_MODE){
+        byte_offset = -1 * (2 + table[idx].offset) * 8;
+      }else{
+        byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
       }
-
       fcomment("push value of pointer to stack");
       // load the value to t0 = fp + byte_offset
       fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
@@ -738,9 +759,15 @@ variable
       /* t1: value of expr */
       // printf("push the address of array's element to the stack\n");
       int idx = look_up_symbol($3);
-      // TODO
-      int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
-      fcomment("push the address of array's element to the stack");
+      
+      // count the offset base on symbol's mode
+      int byte_offset = 0;
+      if(table[idx].mode == ARGUMENT_MODE){
+        byte_offset = -1 * (2 + table[idx].offset) * 8;
+      }else{
+        byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
+      }
+      fcomment("push the address of array element to the stack");
       // write the offset of the first element into t0
       fprintf(codegen, "ld t0, %d(fp)\n", byte_offset);
       // pop the value of expr to t1 and count the byte address
@@ -780,6 +807,13 @@ func_decl
       set_global_vars($2);
     }
   | type ident '(' type '*' ident ',' type '*' ident ')' ';'
+    {
+      //printf("function: %s declared\n");
+      // Put codegen() into symbol table
+      install_symbol($2);
+      set_global_vars($2);
+    }
+  | type ident '(' type '*' ident ',' type ident ')' ';'
     {
       //printf("function: %s declared\n");
       // Put codegen() into symbol table
@@ -838,14 +872,12 @@ func_def
       fprintf(codegen, "addi sp, sp, %d\n", -1*FRAME_SIZE);
       fprintf(codegen, "sd ra, %d(sp)\n", FRAME_SIZE-8);
       fprintf(codegen, "sd fp, %d(sp)\n", FRAME_SIZE-16);
-
       // move fp
       fprintf(codegen, "addi fp, sp, %d\n", FRAME_SIZE);
       // put the argument on stack
       // first argument is put at 3rd block of stack
       fprintf(codegen, "sd a0, %d(fp)\n", -1 * 3 * 8);
       fprintf(codegen, "sd a1, %d(fp)\n", -1 * 4 * 8);
-      // 
       fprintf(codegen, "\n");
       /* 
         since compound_stmt will increase the scope,
@@ -856,8 +888,32 @@ func_def
     compound_stmt
   | type ident '(' type '*' ident ',' type ident ')'
     {
-      // TODO
+      cur_scope++;
       push_execute_func($2);
+      // install the parameter to symbol table
+      install_symbol($6); set_ptr_type($6);
+      install_symbol($9); set_int_type($9);
+      set_scope_and_offset_of_param($2, 2);
+      /* Section A */
+      fcomment("enter funciton body");
+      fprintf(codegen, ".global %s\n", $2);
+      fprintf(codegen, "%s:\n", $2);
+      // save ra, old fp
+      fprintf(codegen, "addi sp, sp, %d\n", -1*FRAME_SIZE);
+      fprintf(codegen, "sd ra, %d(sp)\n", FRAME_SIZE-8);
+      fprintf(codegen, "sd fp, %d(sp)\n", FRAME_SIZE-16);
+      // move fp
+      fprintf(codegen, "addi fp, sp, %d\n", FRAME_SIZE);
+      // put the argument on stack
+      // first argument is put at 3rd block of stack
+      fprintf(codegen, "sd a0, %d(fp)\n", -1 * 3 * 8);
+      fprintf(codegen, "sd a1, %d(fp)\n", -1 * 4 * 8);
+      fprintf(codegen, "\n");
+      /* 
+        since compound_stmt will increase the scope,
+        we should decrease it first
+      */
+      cur_scope--;
     }
     compound_stmt
 ;

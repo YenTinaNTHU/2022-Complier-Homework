@@ -1,23 +1,34 @@
-  void codegen();
-  int func1(int a, int b);
-  int func2(int a, int b);
+void codegen();
+int dp_fib(int *dp, const int fi);
 
-  void codegen() {
-    int tmp1;
-    int a = func1(1,2);
-    delay(a);
-    int b = func2(3,4);
-    delay(b);
+void codegen() {
+  int dp[5];
+  int i;
+  for (i = 0; i < 5; i = i + 1) { /* initialize dp */
+    *(dp + i) = 0;
   }
+  const int a = dp_fib(dp, 6); /* a = 8 */
+  const int b = dp_fib(dp, 4); /* b = 3 */
+  digitalWrite(26, HIGH);
+  delay(a * 1000);
+  digitalWrite(26, LOW);
+  delay(b * 1000);
+}
 
-  int func1(int a, int b){
-    int tmp2 = a + b;
-    return tmp2;
+int dp_fib(int *dp, const int fi) {
+  if (fi == 0) {
+    return 0;
   }
-   int func2(int a, int b){
-    int tmp3 = a - b;
-    return tmp3;
+  if (fi == 1) {
+    return 1;
   }
-
-
+  const int shifted_fi = fi - 2;
+  if (dp[shifted_fi] == 0) {
+    const int ret = dp_fib(dp, fi - 2) + dp_fib(dp, fi - 1);
+    dp[shifted_fi] = ret;
+    return ret;
+  } else {
+    return dp[shifted_fi];
+  }
+}
 
