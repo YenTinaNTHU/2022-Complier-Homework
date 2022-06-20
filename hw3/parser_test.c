@@ -1,14 +1,14 @@
-void codegen();
-void codegen() {
-  int i = 0;
-  int b = 0;
-  for(i = 0; i < 2; i = i + 1){
-    b = b + 1;
-    delay(b);
+  void codegen();
+  int getNum(int a, int b);
+
+  void codegen() {
+    int a = getNum(1,2);
+    delay(a);
   }
-  
-  for(i = 0; i < 2; i = i + 1){
-    b = b + 1;
-    delay(b);
+
+  int getNum(int a, int b){
+    return a + b;
   }
-}
+
+
+

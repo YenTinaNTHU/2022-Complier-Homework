@@ -108,6 +108,9 @@ void set_global_vars(char *name){
 }
 
 void set_local_vars(char *name){
+    printf("set local variable\n");
+    print_execute_func();
+    print_symbol_table(10);
     char* functor_name = exe_func[exe_func_counter-1];
     int idx = look_up_symbol(name);
     int functor_idx = look_up_symbol(functor_name);

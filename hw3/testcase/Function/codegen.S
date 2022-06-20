@@ -439,13 +439,7 @@ beq zero, t0, END_DOWHILE
 j DOWHILE
 
 END_DOWHILE:
-// push num to stack
-li t0, 28
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
+li a0, 28
 li a1, 1
 jal ra, digitalWrite
 
@@ -524,13 +518,7 @@ ld a0, 0(sp)
 addi sp, sp, 8
 jal ra, delay
 
-// push num to stack
-li t0, 28
-addi sp, sp, -8
-sd t0, 0(sp)
-
-ld a0, 0(sp)
-addi sp, sp, 8
+li a0, 28
 li a1, 0
 jal ra, digitalWrite
 

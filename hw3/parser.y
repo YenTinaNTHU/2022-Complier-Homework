@@ -30,6 +30,7 @@
 %type<string_v> stmt
 %type<string_v> array_decl
 %type<string_v> compound_stmt if_stmt if_else_stmt while_stmt do_while_stmt for_stmt
+%type<string_v> func_decl func_def return_stmt break_stmt
 
 
 %token<int_v> INT_NUM POS_INT_NUM NEG_INT_NUM
@@ -67,6 +68,8 @@ program_ingredients
 program_ingredient
   : codegen_decl
   | codegen_def
+  | func_decl
+  | func_def {pop_execute_func();}
 ;
 
 codegen_decl
@@ -79,8 +82,8 @@ codegen_decl
     }
 ;
 
-codegen_def:
-  VOID CODEGEN '(' ')' '{'
+codegen_def
+  : VOID CODEGEN '(' ')' '{'
     {
       cur_scope++;
       push_execute_func("codegen");
@@ -138,6 +141,8 @@ stmt
   | while_stmt
   | do_while_stmt
   | for_stmt
+  | return_stmt
+  | break_stmt
 ;
 
 if_stmt
@@ -237,23 +242,29 @@ for_stmt
     }
 ;
 
+return_stmt: RETURN expr ';';
+
+break_stmt: BREAK ';'
+
 digital_write_func
-  : DIGITALWRITE '(' INT_NUM ',' HIGH ')' ';'
+  : DIGITALWRITE '(' expr ',' HIGH ')' ';'
     {
       // printf("digital_write_func, %d, HIGH\n", $3);
       /* put the argument in to a0, a1 and call digitalWrite() */
       printf("call digitalWrite()\n");
-      fprintf(codegen, "li a0, %d\n", $3);
+      fprintf(codegen, "ld a0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
       fprintf(codegen, "li a1, 1\n");
       fprintf(codegen, "jal ra, digitalWrite\n");
       fprintf(codegen, "\n");
     }
-  | DIGITALWRITE '(' INT_NUM ',' LOW ')' ';'
+  | DIGITALWRITE '(' expr ',' LOW ')' ';'
     {
       // printf("digital_write_func, %d, LOW\n", $3);
       /* put the argument in to a0, a1 and call digitalWrite() */
       printf("call digitalWrite()\n");
-      fprintf(codegen, "li a0, %d\n", $3);
+      fprintf(codegen, "ld a0, 0(sp)\n");
+      fprintf(codegen, "addi sp, sp, 8\n");
       fprintf(codegen, "li a1, 0\n");
       fprintf(codegen, "jal ra, digitalWrite\n");
       fprintf(codegen, "\n");
@@ -280,8 +291,8 @@ scalar_decl
       /* set local variable */
       install_symbol($2);
       set_local_vars($2);
-      set_int_type($2);
-      print_symbol_table(10);
+      // set_int_type($2);
+      // print_symbol_table(10);
       /* store value to the stack */
       int idx = look_up_symbol($2);
       int byte_offset = -1 * (2 + MAX_ARGUMENT_NUM + table[idx].offset) * 8;
@@ -291,7 +302,6 @@ scalar_decl
       // write the value to the variable
       fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
       fprintf(codegen, "\n");
-      print_symbol_table(30);
     }
   | type '*' ident '=' expr ';'
     {
@@ -347,6 +357,7 @@ scalar_decl
       fprintf(codegen, "sd t0, %d(fp)\n", byte_offset);
       fprintf(codegen, "\n");
     }
+  | type ident '=' expr ',' ident '=' expr ';'
 ;
 
 array_decl
@@ -576,6 +587,7 @@ expr
       fprintf(codegen, "\n");
       $$ = 1;
     }
+  | ident '(' expr ',' expr ')' {$$ = 1;}
 ;
 
 int_num
@@ -669,6 +681,18 @@ compound_stmt
   : '{' '}' { $$ = "{}"; }
   | '{' codegen_stmts '}'
 ;
+
+func_decl
+  : type ident '(' type ident ',' type ident ')' ';'
+  | type ident '(' type '*' ident ',' type '*' ident ')' ';'
+;
+
+func_def
+  : type ident '(' type ident ',' type ident ')' {push_execute_func($2);} compound_stmt
+  | type ident '(' type '*' ident ',' type '*' ident ')' {push_execute_func($2);} compound_stmt
+  | type ident '(' type '*' ident ',' type ident ')' {push_execute_func($2);} compound_stmt
+;
+
 
 %%
 
