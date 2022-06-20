@@ -108,13 +108,10 @@ void set_global_vars(char *name){
 }
 
 void set_local_vars(char *name){
-    printf("set local variable\n");
-    print_execute_func();
-    print_symbol_table(10);
     char* functor_name = exe_func[exe_func_counter-1];
     int idx = look_up_symbol(name);
     int functor_idx = look_up_symbol(functor_name);
-    int offset = table[functor_idx].total_locals++;
+    int offset = ++table[functor_idx].total_locals;
     table[idx].mode = LOCAL_MODE;
     table[idx].offset = offset;
 }
@@ -129,17 +126,15 @@ void set_ptr_type(char *name){
     table[idx].type = T_POINTER;
 }
 
-void set_scope_and_offset_of_param(char *functor){
-    int total_args;
+void set_scope_and_offset_of_param(char *functor, int total_args){
     int idx = look_up_symbol(functor);
     if(idx<0){
         printf("Error in function header\n");
     }else{
         table[idx].type = T_FUNCTION;
-        total_args = cur_counter - idx - 1;
         table[idx].total_args = total_args;
         int j = total_args;
-        for(int i = cur_counter-1; i > idx; i--){
+        for(int i = cur_counter-1; j > 0; i--){
             table[i].scope = cur_scope;
             table[i].offset = j;
             table[i].mode = ARGUMENT_MODE;

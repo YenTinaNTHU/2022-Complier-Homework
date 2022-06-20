@@ -1,11 +1,15 @@
 void codegen();
-int getNum(int a, int b);
+int func1(const int *a, const int *b);
 
 void codegen() {
-  int a = getNum(1,2);
-  delay(a);
+  const int tmp1 = 1;
+  const int tmp2 = 2;
+  delay(tmp2);delay(&tmp2);
+  int a = func1(&tmp1,&tmp2);
+  delay(a); // a = 3
 }
 
-int getNum(int a, int b){
-  return a + b;
+int func1(const int *a, const int *b){
+  int tmp2 = *a + *b;
+  return tmp2;
 }

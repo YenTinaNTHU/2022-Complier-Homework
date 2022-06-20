@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_TABLE_SIZE 5000
-#define MAX_ARGUMENT_NUM 3
+#define MAX_ARGUMENT_NUM 5
 #define MAX_LOCAL_NUM 50
 #define FRAME_SIZE (2 + MAX_ARGUMENT_NUM + MAX_LOCAL_NUM) * 8
 
@@ -26,7 +26,7 @@ void set_local_vars(char *name);
 void set_global_vars(char *name);
 void set_int_type(char *name);
 void set_ptr_type(char *name);
-void set_scope_and_offset_of_param(char *functor);
+void set_scope_and_offset_of_param(char *functor, int total_args);
 
 void init_execute_func();
 void push_execute_func(char*func_name);

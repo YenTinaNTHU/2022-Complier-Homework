@@ -1,14 +1,14 @@
 // enter funciton body
 .global codegen
 codegen:
-addi sp, sp, -440
-sd ra, 432(sp)
-sd fp, 424(sp)
-addi fp, sp, 440
+addi sp, sp, -456
+sd ra, 448(sp)
+sd fp, 440(sp)
+addi fp, sp, 456
 
 // array declaration
-li t0, 6
-sd t0, -40(fp)
+li t0, 9
+sd t0, -64(fp)
 // push num to stack
 li t0, 0
 addi sp, sp, -8
@@ -16,11 +16,11 @@ sd t0, 0(sp)
 
 ld t0, 0(sp)
 addi sp, sp, 8
-sd t0, -104(fp)
+sd t0, -128(fp)
 
 DOWHILE:
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -51,8 +51,8 @@ sd t4, 0(sp)
 ld t0, 0(sp)
 addi sp, sp, 8
 beq zero, t0, .IF10
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -67,7 +67,7 @@ addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -94,8 +94,8 @@ sd t1, 0(t0)
 j .IF11
 
 .IF10:
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -126,8 +126,8 @@ sd t4, 0(sp)
 ld t0, 0(sp)
 addi sp, sp, 8
 beq zero, t0, .IF20
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -142,7 +142,7 @@ addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -169,8 +169,8 @@ sd t1, 0(t0)
 j .IF21
 
 .IF20:
-// push ident offset to stack
-li t0, 5
+// count the address value
+li t0, 8
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -184,8 +184,8 @@ ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -223,10 +223,10 @@ sd t0, 0(sp)
 
 ld t0, 0(sp)
 addi sp, sp, 8
-sd t0, -112(fp)
+sd t0, -136(fp)
 
-// push ident offset to stack
-li t0, 5
+// count the address value
+li t0, 8
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -240,8 +240,8 @@ ld t1, 0(t0)
 addi sp, sp, -8
 sd t1, 0(sp)
 
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -279,10 +279,10 @@ sd t0, 0(sp)
 
 ld t0, 0(sp)
 addi sp, sp, 8
-sd t0, -120(fp)
+sd t0, -144(fp)
 
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -297,7 +297,7 @@ addi sp, sp, -8
 sd t1, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -307,9 +307,7 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push value of pointer to stack
-li t1, 112
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -136(fp)
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -324,9 +322,7 @@ addi sp, sp, -8
 sd t1, 0(sp)
 
 // push value of pointer to stack
-li t1, 120
-sub t1, fp, t1
-ld t0, 0(t1)
+ld t0, -144(fp)
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -361,13 +357,13 @@ sd t1, 0(t0)
 
 .IF21:
 .IF11:
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -405,8 +401,8 @@ mul t0, t0, t6
 sub t0, fp, t0
 sd t1, 0(t0)
 
-// push ident offset to stack
-li t0, 13
+// count the address value
+li t0, 16
 addi sp, sp, -8
 sd t0, 0(sp)
 
@@ -444,6 +440,7 @@ li t0, 28
 addi sp, sp, -8
 sd t0, 0(sp)
 
+// call digitalWrite()
 ld a0, 0(sp)
 addi sp, sp, 8
 li a1, 1
@@ -455,7 +452,7 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -480,7 +477,7 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -520,6 +517,7 @@ mul t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
+// call delay function
 ld a0, 0(sp)
 addi sp, sp, 8
 jal ra, delay
@@ -540,7 +538,7 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -565,7 +563,7 @@ addi sp, sp, -8
 sd t0, 0(sp)
 
 // push array's ident byte offset to stack
-li t1, 40
+li t1, 64
 sub t1, fp, t1
 ld t0, 0(t1)
 ld t1, 0(sp)
@@ -605,12 +603,13 @@ mul t0, t1, t0
 addi sp, sp, -8
 sd t0, 0(sp)
 
+// call delay function
 ld a0, 0(sp)
 addi sp, sp, 8
 jal ra, delay
 
 // exit function body
-ld ra, 432(sp)
-ld fp, 424(sp)
-addi sp, sp, 440
+ld ra, 448(sp)
+ld fp, 440(sp)
+addi sp, sp, 456
 jr ra
